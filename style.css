@@ -257,7 +257,7 @@ header{
     border: 3px solid rgb(128, 128, 128);
   }
 .mangas_content div{
-    height: 25vh;
+    height: 100%;
     /* width: 130px; */
     /* background-color: #ff1414; */
     display: flex;
