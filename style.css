@@ -229,7 +229,7 @@ header{
     font-size: 1.2rem;
     color: white;
 }
-.mangas-content{
+.mangas_content{
     height: 25vh;
     width: 100%;
     padding: 10px;
@@ -237,34 +237,36 @@ header{
     display: flex;
     align-items: center;
     overflow-x: scroll;
-
+    
     
 }
-.mangas-content::-webkit-scrollbar {
-   height: 10px;           
+
+.mangas_content::-webkit-scrollbar {
+    height: 10px;           
 
 }
   
-  .mangas-content::-webkit-scrollbar-track {
+  .mangas_content::-webkit-scrollbar-track {
     background: rgb(128, 128, 128);   
     border-radius: 10px;    
   }
   
-  .mangas-content::-webkit-scrollbar-thumb {
+  .mangas_content::-webkit-scrollbar-thumb {
     background-color: rgb(255, 255, 255);    
     border-radius: 20px;      
     border: 3px solid rgb(128, 128, 128);
   }
-.mangas-content div{
-    height: 100%;
+.mangas_content div{
+    height: 25vh;
     /* width: 130px; */
-    /* background-color: #D9D9D9; */
+    /* background-color: #ff1414; */
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
+    margin: 0 2px;
     
 }
-.mangas-content div img{
+.mangas_content div img{
  height: 100%;
 }
