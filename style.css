@@ -84,7 +84,7 @@ header{
 /* MAIN */
  
 #carrossel{
-    width: 95%;
+    width: 100%;
     height: 40vh;
     margin: 0 auto;
     overflow: hidden;
@@ -114,7 +114,7 @@ header{
   
     
     overflow: hidden;
-    padding: 0px 30px;
+    padding: 0px 25px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -222,51 +222,91 @@ header{
     display: flex;
     flex-direction: column;
     overflow: hidden;
-    
-   
 }
 #mangas span{
     font-size: 1.2rem;
     color: white;
+    margin-left: 2px;
 }
 .mangas_content{
-    height: 25vh;
+    height: 20vh;
     width: 100%;
-    padding: 10px;
-    margin-bottom: 20px;
+    padding-bottom: 5px;
+    margin-bottom: 40px;
     display: flex;
     align-items: center;
     overflow-x: scroll;
-    
+    border-radius: 7px;
+    /* background-color: aqua; */
     
 }
 
 .mangas_content::-webkit-scrollbar {
-    height: 10px;           
-
+    height: 5px;           
+    
 }
   
   .mangas_content::-webkit-scrollbar-track {
     background: rgb(128, 128, 128);   
-    border-radius: 10px;    
+    border-radius: 2px;   
+    border: 1px solid rgb(0, 0, 0); 
   }
   
   .mangas_content::-webkit-scrollbar-thumb {
     background-color: rgb(255, 255, 255);    
+    height: 3px;
     border-radius: 20px;      
-    border: 3px solid rgb(128, 128, 128);
+    border: 1px solid rgb(128, 128, 128);
   }
-.mangas_content div{
+.manga{
     height: 100%;
-    /* width: 130px; */
     /* background-color: #ff1414; */
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    margin: 0 2px;
+    margin-right:12px;
+    /* box-shadow: 5px 5px 5px 5px #949494; */
+    user-select: none;
     
 }
-.mangas_content div img{
- height: 100%;
+.manga img{
+    height: 100%;
+    
+    border-radius: 4px;
+    user-select: none;
+}
+
+.manga_descricao{
+    width: 30vw;
+    height: auto;
+    background-color: aliceblue;
+    position: fixed;
+    z-index: 999;
+    top: 0;
+    right: 0;
+    border-radius: 5px;
+}
+.manga_desc_top{
+    display: flex;
+    flex-direction: row;
+    border: solid 1px black;
+    margin: 15px 10;
+}
+.manga_desc_top_txt{
+    display: flex;
+    flex-direction: column;
+}
+.manga_generos{
+    display: flex;
+    flex-wrap: wrap;
+    /* background-color: aqua; */
+
+}
+.manga_generos p{
+    margin: 2 10 2 0;
+}
+.manga_desc_botom{
+    margin: 15px 10;
+    
 }
