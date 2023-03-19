@@ -110,63 +110,126 @@ const scrollManga = document.querySelectorAll('.mangas_content')
 })
 
 // API mangas
-const url = 'https://api.jikan.moe/v4/manga' 
+const urlLancamentos = 'https://api.jikan.moe/v4/manga?page=1&order_by=start_date' 
+const urlEmAlta = 'https://api.jikan.moe/v4/manga?page=1&order_by=EmAltaity' 
 // -H 'Authorization: Bearer YOUR_TOKEN'
 
 
-const emAltaMangas = document.querySelector('#em_alta')
-const lancamentos = document.querySelector('#lancamentos')
+
+
 const recomendados = document.querySelector('#recomendados')
-
+const mangaDesc = document.querySelector('.manga_desc')
 async function GetAllMangas(){
-    const data = await fetch(url, {method: 'GET'}).then(res=>res.json())
-    console.log(data.data)
-    data.data.forEach(()=>{
+    const dataEmAlta = await fetch(urlEmAlta, { method: "GET" }).then(res => res.json())
+    const dataLancamentos = await fetch(urlLancamentos, {method: 'GET'}).then(res=>res.json())
 
-    })
-    for (var i = 0; i < data.data.length; i++) {
-        emAltaMangas.innerHTML += `
-        <div class="manga" id="${i}">
-            <img src="${data.data[i].images.jpg.image_url}" alt="">
-        </div>
-        `
-        
+
+    // mangas em alta
+    const emAlta = document.querySelector('#em_alta')
+    for (var i = 0; i < dataEmAlta.data.length; i++) {
+        emAlta.innerHTML += `
+            <div class="manga" id="${i}">
+                <img src="${dataEmAlta.data[i].images.jpg.image_url}" alt="">
+            </div>
+            `
+        const emAltaMangas = document.querySelectorAll('#em_alta div')
+        emAltaMangas.forEach((e)=>{
+            e.addEventListener('click', ()=>{
+                mangaDesc.style.display = 'flex'
+                pagesManga(dataEmAlta, e.id)
+        })
+     })
      }
-     for (var i = 0; i < data.data.length; i++) {
+     
+
+     
+      // mangas lançamentos
+      const lancamentos = document.querySelector('#lancamentos')
+      for (var i = 0; i < dataLancamentos.data.length; i++) {
         lancamentos.innerHTML += `
         <div class="manga" id="${i}">
-            <img src="${data.data[i].images.jpg.image_url}" alt="">
+            <img src="${dataLancamentos.data[i].images.jpg.image_url}" alt="">
         </div>
         `
-        
-     }
-     pagesManga()
-     function pagesManga(){
-       const mangaDesc = document.querySelector('.manga_descricao')
-       const mangaImg = document.querySelector('.manga_bg')
-       const mangaTitle = document.querySelector('.manga_title')
-       const mangaAutor = document.querySelector('.manga_autor')
-       const mangaCap = document.querySelector('.manga_cap')
-        const mangaSino = document.querySelector('.manga_desc_botom')
-
-       console.log(mangaDesc) 
-       document.querySelectorAll('.manga').forEach((e)=>{
-            e.addEventListener('click', ()=>{
-                console.log(data.data[e.id])
-                mangaImg.innerHTML =`
-                <img src="${data.data[e.id].images.jpg.image_url}" alt="">
-                `
-                mangaTitle.innerHTML =`${data.data[e.id].title}`
-                mangaAutor.innerHTML =`${data.data[e.id].authors[0].name}`
-                mangaCap.innerHTML =`capitulos: ${data.data[e.id].chapters}`
-                mangaSino.innerHTML =`Sinopse: ${data.data[e.id].synopsis
-                }`
-            
+    
+        const lancamentosManga = document.querySelectorAll('#lancamentos div')
+        lancamentosManga.forEach((e)=>{
+            e.addEventListener('click', ()=>{    
+                pagesManga(dataLancamentos, e.id)
             })
         })
+     }
+ 
+
+     
+     const mangaImg = document.querySelector('.content_img')
+     const mangaTitle = document.querySelector('#title')
+     const mangaAutor = document.querySelector('#autor')
+     const mangaGene = document.querySelector('#generos')
+     const mangaCap = document.querySelector('#cap')
+     const mangaSino = document.querySelector('#sinopse')
+
+     function pagesManga(local, item){
+        // itens da descrição do mangá
+        console.log(local.data)
+        mangaImg.innerHTML =`
+        <img id="img" src="${local.data[item].images.jpg.image_url}" alt="">
+        `
+        // Titulo
+        if(local.data[item].title.length == 0 || local.data[item].title == null){
+            mangaTitle.innerHTML =`Titulo: Desconhecido`
+        }else{
+            mangaTitle.innerHTML =`${local.data[item].title}`
+        }
+        
+        // Autor
+        if(local.data[item].authors.length == 0){
+            mangaAutor.innerHTML =`Desconhecido`
+        }else{
+            // for 
+            mangaAutor.innerHTML = ""
+            for( v = 0; v < local.data[item].authors.length; v++){
+               mangaAutor.innerHTML += `${local.data[item].authors[v].name} </br>`
+            }
+         
+        }
+
+        // Generos 
+        if(local.data[item].genres.length == 0 || local.data[item].genres == null){
+            mangaGene.innerHTML =`Desconhecido`
+        }else{
+            // for 
+            mangaGene.innerHTML = ""
+            for( v = 0; v < local.data[item].genres.length; v++){
+               mangaGene.innerHTML += `<li> ${local.data[item].genres[v].name} </li>`
+            }
+         
+        }
+
+        // Capitulos
+        if(local.data[item].chapters == null || local.data[item].chapters.length == 0){
+            mangaCap.innerHTML =`Desconhecido`
+        }else{
+            mangaCap.innerHTML =`${local.data[item].chapters}`
+        }
+    
+        // Sinopse
+        if(local.data[item].synopsis == null || local.data[item].synopsis.length == 0){
+            mangaSino.innerHTML =`Desconhecido`
+        }else{
+            mangaSino.innerHTML =`${local.data[item].synopsis}`
+        }
+       
+            
+          
+       
     }
 }
 GetAllMangas()
 
 
+document.querySelector('#btn_fechar')
+.addEventListener('click', ()=>{
+    mangaDesc.style.display = 'none'
+})
 
