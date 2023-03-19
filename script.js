@@ -167,11 +167,12 @@ async function GetAllMangas(){
      const mangaAutor = document.querySelector('#autor')
      const mangaGene = document.querySelector('#generos')
      const mangaCap = document.querySelector('#cap')
+     const mangaStatus = document.querySelector('#status')
      const mangaSino = document.querySelector('#sinopse')
 
      function pagesManga(local, item){
         // itens da descrição do mangá
-        console.log(local.data)
+        console.log(local.data[item])
         mangaImg.innerHTML =`
         <img id="img" src="${local.data[item].images.jpg.image_url}" alt="">
         `
@@ -212,7 +213,14 @@ async function GetAllMangas(){
         }else{
             mangaCap.innerHTML =`${local.data[item].chapters}`
         }
-    
+        
+        // Status
+        if(local.data[item].status == null || local.data[item].status.length == 0){
+            mangaStatus.innerHTML =`Desconhecido`
+        }else{
+            mangaStatus.innerHTML =`${local.data[item].status}`
+        }
+
         // Sinopse
         if(local.data[item].synopsis == null || local.data[item].synopsis.length == 0){
             mangaSino.innerHTML =`Desconhecido`
