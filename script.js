@@ -110,8 +110,8 @@ const scrollManga = document.querySelectorAll('.mangas_content')
 })
 
 // API mangas
-const urlLancamentos = 'https://api.jikan.moe/v4/manga?page=1&order_by=start_date' 
-const urlEmAlta = 'https://api.jikan.moe/v4/manga?page=1&order_by=EmAltaity' 
+const urlEmAlta = 'https://api.jikan.moe/v4/manga?page=1&order_by=favorites' 
+const urlLancamentos = 'https://api.jikan.moe/v4/manga?page=1&status=publishing' 
 // -H 'Authorization: Bearer YOUR_TOKEN'
 
 
@@ -120,43 +120,86 @@ const urlEmAlta = 'https://api.jikan.moe/v4/manga?page=1&order_by=EmAltaity'
 const recomendados = document.querySelector('#recomendados')
 const mangaDesc = document.querySelector('.manga_desc')
 async function GetAllMangas(){
-    const dataEmAlta = await fetch(urlEmAlta, { method: "GET" }).then(res => res.json())
-    const dataLancamentos = await fetch(urlLancamentos, {method: 'GET'}).then(res=>res.json())
+  
+   
 
 
     // mangas em alta
+    const dataEmAlta = await fetch(urlEmAlta, { method: "GET" }).then(res => res.json())
     const emAlta = document.querySelector('#em_alta')
     for (var i = 0; i < dataEmAlta.data.length; i++) {
-        emAlta.innerHTML += `
-            <div class="manga" id="${i}">
-                <img src="${dataEmAlta.data[i].images.jpg.image_url}" alt="">
-            </div>
-            `
-        const emAltaMangas = document.querySelectorAll('#em_alta div')
-        emAltaMangas.forEach((e)=>{
-            e.addEventListener('click', ()=>{
-                pagesManga(dataEmAlta, e.id)
-        })
-     })
+
+        // O formato dessa imagem tava enchendo o saco 
+        if(dataEmAlta.data[i].images.jpg.image_url == 'https://cdn.myanimelist.net/img/sp/icon/apple-touch-icon-256.png'){
+            i++
+        }else{
+            // Formatação para tirar indecencias 
+            var cont = 0
+            for(v = 0; v < dataEmAlta.data[i].genres.length; v++){
+                
+                if(dataEmAlta.data[i].genres[v].name == 'Ecchi' || 
+                dataEmAlta.data[i].genres[v].name == 'Hentai' ||
+                dataEmAlta.data[i].genres[v].name == 'Erotica'){
+                   cont ++
+                }
+            }
+            if(cont == 0){
+                emAlta.innerHTML += `
+                <div class="manga" id="${i}">
+                    <img src="${dataEmAlta.data[i].images.jpg.image_url}" alt="">
+                </div>
+                `
+                const emAltaMangas = document.querySelectorAll('#em_alta div')
+                emAltaMangas.forEach((e)=>{
+                        e.addEventListener('click', ()=>{
+                            pagesManga(dataEmAlta, e.id)
+                    })
+                })
+            }
+         
+       
+        }
+
      }
      
 
      
       // mangas lançamentos
+      const dataLancamentos = await fetch(urlLancamentos, {method: 'GET'}).then(res=>res.json())
       const lancamentos = document.querySelector('#lancamentos')
       for (var i = 0; i < dataLancamentos.data.length; i++) {
-        lancamentos.innerHTML += `
-        <div class="manga" id="${i}">
-            <img src="${dataLancamentos.data[i].images.jpg.image_url}" alt="">
-        </div>
-        `
-    
-        const lancamentosManga = document.querySelectorAll('#lancamentos div')
-        lancamentosManga.forEach((e)=>{
-            e.addEventListener('click', ()=>{    
-                pagesManga(dataLancamentos, e.id)
-            })
-        })
+
+        // O formato dessa imagem tava enchendo o saco 
+        if(dataLancamentos.data[i].images.jpg.image_url == 'https://cdn.myanimelist.net/img/sp/icon/apple-touch-icon-256.png'){
+            i++
+        }else{
+            // Formatação para tirar indecencias 
+            var cont = 0
+            for(v = 0; v < dataLancamentos.data[i].genres.length; v++){
+                
+                if(dataLancamentos.data[i].genres[v].name == 'Ecchi' || 
+                dataLancamentos.data[i].genres[v].name == 'Hentai' ||
+                dataLancamentos.data[i].genres[v].name == 'Erotica'){
+                   cont ++
+                }
+            }
+            if(cont == 0){
+                lancamentos.innerHTML += `
+                <div class="manga" id="${i}">
+                    <img src="${dataLancamentos.data[i].images.jpg.image_url}" alt="">
+                </div>
+                `
+                const lancamentosMangas = document.querySelectorAll('#lancamentos div')
+                lancamentosMangas.forEach((e)=>{
+                        e.addEventListener('click', ()=>{
+                            pagesManga(dataLancamentos, e.id)
+                    })
+                })
+            }
+         
+       
+        }
+
      }
  
 
@@ -165,7 +208,7 @@ async function GetAllMangas(){
      const mangaTitle = document.querySelector('#title')
      const mangaAutor = document.querySelector('#autor')
      const mangaGene = document.querySelector('#generos')
-     const mangaCap = document.querySelector('#cap')
+     const mangaCap = document.querySelector('.content_cap')
      const mangaStatus = document.querySelector('#status')
      const mangaSino = document.querySelector('#sinopse')
 
@@ -197,21 +240,39 @@ async function GetAllMangas(){
 
         // Generos 
         if(local.data[item].genres.length == 0 || local.data[item].genres == null){
-            mangaGene.innerHTML =`Desconhecido`
+            if(local.data[item].demographics.length != 0){
+                mangaGene.innerHTML = `<li class="tipo"> ${local.data[item].demographics[0].name} </li>`
+            }else{
+                mangaGene.innerHTML =`Desconhecido`
+            }
         }else{
-            // for 
             mangaGene.innerHTML = ""
+            if(local.data[item].demographics.length != 0){
+                mangaGene.innerHTML += `<li class="tipo"> ${local.data[item].demographics[0].name} </li>`
+            }
+           
             for( v = 0; v < local.data[item].genres.length; v++){
                mangaGene.innerHTML += `<li> ${local.data[item].genres[v].name} </li>`
             }
+         
+          
          
         }
 
         // Capitulos
         if(local.data[item].chapters == null || local.data[item].chapters.length == 0){
-            mangaCap.innerHTML =`Desconhecido`
+            if(local.data[item].volumes == null || local.data[item].volumes.length == 0){
+                mangaCap.innerHTML =`<span class="span_sep">capitulos:</span> 
+                <p id="cap">Desconhecido</p>` 
+            }else{
+                mangaCap.innerHTML =`<span class="span_sep">Volumes:</span> 
+                <p id="cap">${local.data[item].volumes}</p>`
+            }
+            
         }else{
-            mangaCap.innerHTML =`${local.data[item].chapters}`
+            mangaCap.innerHTML =`
+            <span class="span_sep">Capitulos:</span> 
+                <p id="cap">${local.data[item].chapters}</p>`
         }
         
         // Status

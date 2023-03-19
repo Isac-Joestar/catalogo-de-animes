@@ -321,12 +321,14 @@ header{
 }
 .content_img{
     /* background-color: aqua; */
-    /* width: 20vw; */
-    height: 30vh;
     margin-right: 5px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: start;
+
 }
 #img{
-    height: 100%;
+    width: 150px;
 }
 #title{
     font-size: 1.5rem;
@@ -354,10 +356,17 @@ header{
     margin: 2px 3px;
     color: aliceblue;
 }
+.tipo{
+    background-color: #3d3aff !important;
+    color: #ffffff !important;
+}
 
 .desc_bottom{
     display: flex;
     flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    width: 100%;
 }
 
 .content_cap,
@@ -371,11 +380,12 @@ header{
 
 .content_sinopse{
     margin-top: 10px;
+    /* background-color: #808080; */
 }
 #sinopse{
-    height: 20vh;
+    max-height: 20vh;
     /* background-color: aqua; */
-    overflow-y: scroll;
+    overflow-y: auto;
     text-align: justify;
     padding: 0px 7px 0px 0px;
 }
