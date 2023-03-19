@@ -289,7 +289,7 @@ header{
     top: 0vh;
     right: 2px;
    
-    display: flex;
+    display: none;
     flex-direction: column;
     align-items: center;
  
