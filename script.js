@@ -135,7 +135,6 @@ async function GetAllMangas(){
         const emAltaMangas = document.querySelectorAll('#em_alta div')
         emAltaMangas.forEach((e)=>{
             e.addEventListener('click', ()=>{
-                mangaDesc.style.display = 'flex'
                 pagesManga(dataEmAlta, e.id)
         })
      })
@@ -172,6 +171,7 @@ async function GetAllMangas(){
 
      function pagesManga(local, item){
         // itens da descrição do mangá
+        mangaDesc.style.display = 'flex'
         console.log(local.data[item])
         mangaImg.innerHTML =`
         <img id="img" src="${local.data[item].images.jpg.image_url}" alt="">
