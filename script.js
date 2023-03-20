@@ -111,6 +111,7 @@ const scrollManga = document.querySelectorAll('.mangas_content')
 
 // API mangas
 const urlEmAlta = 'https://api.jikan.moe/v4/manga?page=1&order_by=popularity' 
+// const urlEmAlta = 'https://api.jikan.moe/v4/manga/news' 
 const urlLancamentos = 'https://api.jikan.moe/v4/manga?page=1&status=publishing' 
 // -H 'Authorization: Bearer YOUR_TOKEN'
 
