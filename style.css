@@ -424,7 +424,7 @@ header{
     top: 10vh;
     /* background-color: rgba(32, 32, 32, 0.527); */
   
-    display: flex;
+    display: none;
     align-items: flex-start;
     justify-content: center;
     backdrop-filter: blur(2px);
