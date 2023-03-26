@@ -111,9 +111,8 @@ const scrollManga = document.querySelectorAll('.mangas_content')
 
 // API mangas
 const urlEmAlta = 'https://api.jikan.moe/v4/manga?page=1&order_by=popularity' 
-// const urlEmAlta = 'https://api.jikan.moe/v4/manga/news' 
-const urlLancamentos = 'https://api.jikan.moe/v4/manga?page=1&status=publishing' 
-// -H 'Authorization: Bearer YOUR_TOKEN'
+const urlLancamentos = 'https://api.jikan.moe/v4/manga?page=1&status=publishing&order_by=popularity' 
+
 
 
 
@@ -196,6 +195,7 @@ async function GetAllMangas(){
                             pagesManga(dataLancamentos, e.id)
                     })
                 })
+
             }
          
        
@@ -303,3 +303,14 @@ document.querySelector('#btn_fechar')
     mangaDesc.style.display = 'none'
 })
 
+
+
+// Pesquisa
+document.querySelector("#pesquisa input")
+.addEventListener('keyup', ()=>{
+    document.querySelector('#resultado').style.display = 'flex'
+})
+document.querySelector("#resultado")
+.addEventListener('click', ()=>{
+    document.querySelector('#resultado').style.display = 'none'
+})
