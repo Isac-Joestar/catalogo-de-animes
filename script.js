@@ -110,22 +110,32 @@ const scrollManga = document.querySelectorAll('.mangas_content')
 })
 
 // API mangas
+
+
+
+const urlTeste = 'https://api.jikan.moe/v4/manga'
+async function testeAPI (){
+    const dataTeste = await fetch(urlTeste, {method: 'GET'}).then(res => res.json())
+    console.log(dataTeste)
+    if(dataTeste.data == undefined){
+        alert('Ops! Algo de errado não está certo, a API não está funcionando direito, volte mais tarde.')
+    }else(
+        GetAllMangas()
+    )
+}; testeAPI()
+
+
+
 const urlEmAlta = 'https://api.jikan.moe/v4/manga?page=1&order_by=popularity' 
 const urlLancamentos = 'https://api.jikan.moe/v4/manga?page=1&status=publishing&order_by=popularity' 
-
-
-
-
-
-const recomendados = document.querySelector('#recomendados')
-const mangaDesc = document.querySelector('.manga_desc')
 async function GetAllMangas(){
   
    
 
 
     // mangas em alta
-    const dataEmAlta = await fetch(urlEmAlta, { method: "GET" }).then(res => res.json())
+    const dataEmAlta = await fetch(urlEmAlta, {method: 'GET'}).then(res => res.json())
+    console.log(dataEmAlta)
     const emAlta = document.querySelector('#em_alta')
     for (var i = 0; i < dataEmAlta.data.length; i++) {
 
@@ -295,9 +305,9 @@ async function GetAllMangas(){
        
     }
 }
-GetAllMangas()
 
 
+const mangaDesc = document.querySelector('.manga_desc')
 document.querySelector('#btn_fechar')
 .addEventListener('click', ()=>{
     mangaDesc.style.display = 'none'
@@ -306,11 +316,54 @@ document.querySelector('#btn_fechar')
 
 
 // Pesquisa
+
+
+
 document.querySelector("#pesquisa input")
 .addEventListener('keyup', ()=>{
     document.querySelector('#resultado').style.display = 'flex'
+    // var text = document.querySelector("#pesquisa input").value
+
 })
 document.querySelector("#resultado")
 .addEventListener('click', ()=>{
     document.querySelector('#resultado').style.display = 'none'
 })
+
+
+
+
+
+// var result = document.querySelector('#content_resultados')
+// async function pesquisa (url){
+//     console.log(dataPesquisa.data)
+//     const dataPesquisa = await fetch(url, {method: 'GET'}).then(res=>res.json())
+//    console.log(dataPesquisa.data)
+    // for(i = 0; i < url.length; i++){
+    //     result.innerHTML = `
+    //     <div class="resultado_manga">
+                
+    //     <div class="result_img">
+    //         <img src="${url.data[i].images.jpg.image_url}" alt="">
+    //     </div>
+        
+    //     <div class="resultado_txt">
+    //         <span id="result_title">${url.data[i].title}</span>
+    //         <div class="content_result_cap">
+    //             <span class="pre">Capitulos:</span> <p id="result_cap">${url.data[i].chapters}</p>
+    //         </div>
+    //         <span class="pre">Generos:</span>
+    //         <ul class="result_generos">
+    //             <li>Aventura</li>
+    //             <li>Fantasia</li>
+    //             <li>Drama</li>
+    //             <li>Terror</li>
+    //             <li>Vingança</li>
+    //             <li>Distopia</li>
+    //         </ul>
+    //     </div>
+    // </div>
+    //     `
+    // }
+   
+// }
