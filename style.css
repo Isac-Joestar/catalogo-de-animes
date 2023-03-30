@@ -423,6 +423,7 @@ header{
     position: fixed;
     top: 10vh;
     /* background-color: rgba(32, 32, 32, 0.527); */
+   
   
     display: none;
     align-items: flex-start;
@@ -446,14 +447,15 @@ header{
 }
 
 .resultado_manga{
-    border-bottom: 1px solid black;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.322);
     display: flex;
     flex-direction: row;
     cursor: pointer;
+    padding: 10px;
 }
 .result_img{
     /* background-color: aqua; */
-    height: 25vh;
+    height: 20vh;
     margin-right: 5px;
 }
 .result_img img{

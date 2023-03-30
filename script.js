@@ -116,18 +116,19 @@ const scrollManga = document.querySelectorAll('.mangas_content')
 const urlTeste = 'https://api.jikan.moe/v4/manga'
 async function testeAPI (){
     const dataTeste = await fetch(urlTeste, {method: 'GET'}).then(res => res.json())
-    console.log(dataTeste)
+    // console.log(dataTeste)
     if(dataTeste.data == undefined){
         alert('Ops! Algo de errado não está certo, a API não está funcionando direito, volte mais tarde.')
     }else(
         GetAllMangas()
     )
-}; testeAPI()
+}; 
+testeAPI()
 
 
 
-const urlEmAlta = 'https://api.jikan.moe/v4/manga?page=1&order_by=popularity' 
-const urlLancamentos = 'https://api.jikan.moe/v4/manga?page=1&status=publishing&order_by=popularity' 
+const urlEmAlta = 'https://api.jikan.moe/v4/manga?page=1&order_by=popularity&sfw' 
+const urlLancamentos = 'https://api.jikan.moe/v4/manga?page=1&status=publishing&order_by=popularity&sfw' 
 async function GetAllMangas(){
   
    
@@ -135,7 +136,7 @@ async function GetAllMangas(){
 
     // mangas em alta
     const dataEmAlta = await fetch(urlEmAlta, {method: 'GET'}).then(res => res.json())
-    console.log(dataEmAlta)
+    console.log(dataEmAlta.data[0].mal_id)
     const emAlta = document.querySelector('#em_alta')
     for (var i = 0; i < dataEmAlta.data.length; i++) {
 
@@ -143,7 +144,7 @@ async function GetAllMangas(){
         if(dataEmAlta.data[i].images.jpg.image_url == 'https://cdn.myanimelist.net/img/sp/icon/apple-touch-icon-256.png'){
             i++
         }else{
-            // Formatação para tirar indecencias 
+            // Formatação para tirar indecencias
             var cont = 0
             for(v = 0; v < dataEmAlta.data[i].genres.length; v++){
                 
@@ -153,6 +154,13 @@ async function GetAllMangas(){
                    cont ++
                 }
             }
+            // Retirar mangás repitidos
+            if(dataEmAlta.data[i].mal_id == malID){
+                i++
+            }else{
+                var malID = dataEmAlta.data[i].mal_id
+            }
+           
             if(cont == 0){
                 emAlta.innerHTML += `
                 <div class="manga" id="${i}">
@@ -226,7 +234,7 @@ async function GetAllMangas(){
      function pagesManga(local, item){
         // itens da descrição do mangá
         mangaDesc.style.display = 'flex'
-        console.log(local.data[item])
+        // console.log(local.data[item])
         mangaImg.innerHTML =`
         <img id="img" src="${local.data[item].images.jpg.image_url}" alt="">
         `
@@ -318,52 +326,92 @@ document.querySelector('#btn_fechar')
 // Pesquisa
 
 
+const inputPesquisa = document.querySelector("#pesquisa input")
 
-document.querySelector("#pesquisa input")
-.addEventListener('keyup', ()=>{
-    document.querySelector('#resultado').style.display = 'flex'
-    // var text = document.querySelector("#pesquisa input").value
+var cont = 0
+inputPesquisa.addEventListener('keyup',(e)=>{
+    document.getElementById('resultado').style.display = 'flex'
+    var text = inputPesquisa.value
+    
+    function testePesquisa(){
+        if(cont == 0 && text.replace(/\s/g,"").length > 0){
+            cont += 1
+            pesquisa(text)
+            espera()
+        }else{
+            result.innerHTML += ''
+        }
 
+    } testePesquisa()
+        // pesquisar ao clicar no start
+        let keyCode = e.keyCode || e.which
+        if (keyCode == 13) {
+            testePesquisa()
+        }
+        // pesquisar ao apagar 
+        // if(inputPesquisa.keydown){
+        //     testePesquisa()
+        // }
+
+       // função para não espamar pesquisa
+        function espera(){
+            setTimeout(()=>{
+                cont = 0
+                console.log(cont)
+            },1000)
+        }
+
+        document.addEventListener('mouseup', function(e) {
+            // console.log(e.target)
+            var container = document.getElementById('content_resultados');
+            if (!container.contains(e.target)) {
+                document.getElementById('resultado').style.display = 'none';
+            }
+        }); 
 })
-document.querySelector("#resultado")
-.addEventListener('click', ()=>{
-    document.querySelector('#resultado').style.display = 'none'
-})
+
+  
 
 
 
 
 
-// var result = document.querySelector('#content_resultados')
-// async function pesquisa (url){
-//     console.log(dataPesquisa.data)
-//     const dataPesquisa = await fetch(url, {method: 'GET'}).then(res=>res.json())
-//    console.log(dataPesquisa.data)
-    // for(i = 0; i < url.length; i++){
-    //     result.innerHTML = `
-    //     <div class="resultado_manga">
+
+
+
+var result = document.querySelector('#content_resultados')
+async function pesquisa (param){
+    var urlPesquisa = `https://api.jikan.moe/v4/manga?q=${param}&sfw&order_by=popularity`
+
+    const dataPesquisa = await fetch(urlPesquisa, {method: 'GET'}).then(res=>res.json())
+    console.log(dataPesquisa.data)
+    result.innerHTML = ``
+    for(i = 0; i < dataPesquisa.data.length; i++){
+        result.innerHTML += `
+        <div class="resultado_manga">
                 
-    //     <div class="result_img">
-    //         <img src="${url.data[i].images.jpg.image_url}" alt="">
-    //     </div>
+        <div class="result_img">
+            <img src="${dataPesquisa.data[i].images.jpg.image_url}" alt="">
+        </div>
         
-    //     <div class="resultado_txt">
-    //         <span id="result_title">${url.data[i].title}</span>
-    //         <div class="content_result_cap">
-    //             <span class="pre">Capitulos:</span> <p id="result_cap">${url.data[i].chapters}</p>
-    //         </div>
-    //         <span class="pre">Generos:</span>
-    //         <ul class="result_generos">
-    //             <li>Aventura</li>
-    //             <li>Fantasia</li>
-    //             <li>Drama</li>
-    //             <li>Terror</li>
-    //             <li>Vingança</li>
-    //             <li>Distopia</li>
-    //         </ul>
-    //     </div>
-    // </div>
-    //     `
-    // }
+        <div class="resultado_txt">
+            <span id="result_title">${dataPesquisa.data[i].title}</span>
+            <div class="content_result_cap">
+                <span class="pre">Capitulos:</span> <p id="result_cap">${dataPesquisa.data[i].chapters}</p>
+            </div>
+            <span class="pre">Generos:</span>
+            <ul class="result_generos">
+                <li>Aventura</li>
+                <li>Fantasia</li>
+                <li>Drama</li>
+                <li>Terror</li>
+                <li>Vingança</li>
+                <li>Distopia</li>
+            </ul>
+        </div>
+    </div>
+        `
+    
+    }
    
-// }
+}
