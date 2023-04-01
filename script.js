@@ -80,34 +80,41 @@ function nextImage(){
 
 // Scroll mangas
 
-const scrollManga = document.querySelectorAll('.mangas_content')
-.forEach((e)=>{
-    // console.log(e)
-    let isDragStart = false, prevPageX, prevScrollLeft;
 
-    const dragStart = (t)=>{
-        isDragStart = true;
-        prevPageX = t.pageX;
-        prevScrollLeft = e.scrollLeft;
-    }
+if(document.querySelector("main").style.maxWidth != '600px'){
+    document.querySelectorAll('.mangas_content')
+    .forEach((e)=>{
+        
+        // console.log(e)
+        let isDragStart = false, prevPageX, prevScrollLeft;
+    
+        const dragStart = (t)=>{
+            isDragStart = true;
+            prevPageX = t.pageX;
+            prevScrollLeft = e.scrollLeft;
+        }
+    
+        const dragging = (t)=>{
+            if(!isDragStart) return;
+            t.preventDefault();
+            let positionDiff = t.pageX - prevPageX;
+            e.scrollLeft = prevScrollLeft - positionDiff;
+        }
+    
+        const dragStop = () =>{
+            isDragStart = false;
+        }
+    
+        e.addEventListener('mousedown', dragStart);
+        e.addEventListener('mousemove', dragging);
+        e.addEventListener('mouseup', dragStop);
+        e.addEventListener('mouseleave', dragStop);
+        // e.addEventListener('mouseout', dragStop);
+    })
+}
 
-    const dragging = (t)=>{
-        if(!isDragStart) return;
-        t.preventDefault();
-        let positionDiff = t.pageX - prevPageX;
-        e.scrollLeft = prevScrollLeft - positionDiff;
-    }
+       
 
-    const dragStop = () =>{
-        isDragStart = false;
-    }
-
-    e.addEventListener('mousedown', dragStart);
-    e.addEventListener('mousemove', dragging);
-    e.addEventListener('mouseup', dragStop);
-    e.addEventListener('mouseleave', dragStop);
-    // e.addEventListener('mouseout', dragStop);
-})
 
 // API mangas
 
