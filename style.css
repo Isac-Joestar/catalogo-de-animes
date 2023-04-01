@@ -91,9 +91,9 @@ header{
 }
 
 /* MAIN */
- main{
+main{
     padding-top: 12vh;
- }
+}
 #carrossel{
     width: 100%;
     height: 40vh;
@@ -257,18 +257,18 @@ header{
     
 }
   
-  .mangas_content::-webkit-scrollbar-track {
+.mangas_content::-webkit-scrollbar-track {
     background: rgb(128, 128, 128);   
     border-radius: 2px;   
     border: 1px solid rgb(0, 0, 0); 
-  }
+}
   
-  .mangas_content::-webkit-scrollbar-thumb {
+.mangas_content::-webkit-scrollbar-thumb {
     background-color: rgb(255, 255, 255);    
     height: 3px;
     border-radius: 20px;      
     border: 1px solid rgb(128, 128, 128);
-  }
+}
 .manga{
     height: 100%;
     /* background-color: #ff1414; */
@@ -573,3 +573,94 @@ header{
 }
 
 /* Responsividade Main */
+@media screen and (max-width: 700px) {
+    main{
+        padding-top: 12vh;
+    }
+    #carrossel{
+        height: 35vh;
+        /* background-color: aqua; */
+    }
+    #slides{
+        height: 35vh;
+        align-items: center;  
+    }
+    .slide{
+        height: 100%;
+    
+        /* background-color: aqua; */
+    }
+    .manual_btn{
+        padding: 7px;
+        margin: 6px;
+       
+    }
+    #navegacao_auto div{
+        padding: 7px;
+        margin: 6px;
+       
+    }
+}
+@media screen and (max-width: 600px) {
+    #carrossel{
+        height: 30vh;
+       
+    }
+    #slides{
+        height: 30vh;
+       
+    }
+    .slide{
+        width: 25%;
+        height: 100%;
+        padding: 0px 20px;
+    }
+    .img_slide img{
+       width: auto;
+       height: 300px;
+    }
+}
+@media screen and (max-width: 500px) {
+    #carrossel{
+        height: 30vh;
+       
+    }
+    #slides{
+        height: 30vh;
+       
+    }
+    .slide{
+        width: 25%;
+        height: 280px;
+        padding: 0px 20px;
+    }
+    .img_slide img{
+       height: 100%;
+    }
+}
+@media screen and (max-width: 450px) {
+    #carrossel{
+        height: 25vh;
+       
+    }
+    #slides{
+        height: 25vh;
+       
+    }
+    .img_slide img{
+        width: 110%;
+        height: auto;
+     }
+}
+@media screen and (max-width: 400px) {
+    #carrossel{
+        display: none;
+    }
+    main{
+        padding-top: 5vh;
+    }
+    #mangas{
+        margin: 7vh 0vh 0vh 1vh;
+    }
+   
+}
