@@ -664,3 +664,65 @@ main{
     }
    
 }
+
+/* Responsividade desc */
+@media screen and (max-width: 1900px) {
+    .manga_desc{
+        width: 20%;   
+    }
+}
+@media screen and (max-width: 1700px) {
+    .manga_desc{
+        width: 25%;   
+    }
+}
+@media screen and (max-width: 1300px) {
+    .manga_desc{
+        width: 30%;   
+    }
+}
+@media screen and (max-width: 1050px) {
+    .manga_desc{
+        width: 35%;   
+    }
+}
+@media screen and (max-width: 900px) {
+    .manga_desc{
+        width: 40%;   
+    }
+}
+@media screen and (max-width: 800px) {
+    .manga_desc{
+        width: 45%;   
+    }
+}
+@media screen and (max-width: 700px) {
+    .manga_desc{
+        width: 50%;   
+    }
+}
+@media screen and (max-width: 600px) {
+    .manga_desc{
+        width: 60%;   
+    }
+}
+@media screen and (max-width: 500px) {
+    .manga_desc{
+        width: 70%;   
+    }
+}
+@media screen and (max-width: 450px) {
+    .manga_desc{
+        width: 75%;   
+    }
+}
+@media screen and (max-width: 400px) {
+    .manga_desc{
+        width: 85%;   
+    }
+}
+@media screen and (max-width: 400px) {
+    .manga_desc{
+        width: 95%;   
+    }
+}
