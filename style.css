@@ -426,7 +426,7 @@ main{
     /* background-color: rgba(32, 32, 32, 0.527); */
    
   
-    display: none;
+    display: flex;
     align-items: flex-start;
     justify-content: center;
     backdrop-filter: blur(2px);
@@ -665,7 +665,7 @@ main{
    
 }
 
-/* Responsividade desc */
+/* Responsividade descrição mangá */
 @media screen and (max-width: 1900px) {
     .manga_desc{
         width: 20%;   
@@ -724,5 +724,37 @@ main{
 @media screen and (max-width: 400px) {
     .manga_desc{
         width: 95%;   
+    }
+}
+
+/* Responsividade Pesquisa Mangá */
+@media screen and (max-width: 900px) {
+    #content_resultados{
+        width: 60vw;   
+    }
+}
+@media screen and (max-width: 750px) {
+    #content_resultados{
+        width: 70vw;   
+    }
+}
+@media screen and (max-width: 600px) {
+    #content_resultados{
+        width: 80vw;   
+    }
+}
+@media screen and (max-width: 500px) {
+    #content_resultados{
+        width: 90vw;   
+    }
+}
+@media screen and (max-width: 450px) {
+    #content_resultados{
+        width: 95vw;   
+    }
+}
+@media screen and (max-width: 450px) {
+    #content_resultados{
+        width: 99vw;   
     }
 }
