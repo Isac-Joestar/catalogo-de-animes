@@ -127,102 +127,79 @@ testeAPI()
 
 
 
-const urlEmAlta = 'https://api.jikan.moe/v4/manga?page=1&order_by=popularity&sfw' 
-const urlLancamentos = 'https://api.jikan.moe/v4/manga?page=1&status=publishing&order_by=popularity&sfw' 
+const urlEmAlta = 'https://api.jikan.moe/v4/manga?page=1&order_by=popularity' 
+const urlLancamentos = 'https://api.jikan.moe/v4/manga?page=1&status=publishing&order_by=popularity' 
 async function GetAllMangas(){
-  
-   
-
-
-    // mangas em alta
     const dataEmAlta = await fetch(urlEmAlta, {method: 'GET'}).then(res => res.json())
-    console.log(dataEmAlta.data[0].mal_id)
-    const emAlta = document.querySelector('#em_alta')
-    for (var i = 0; i < dataEmAlta.data.length; i++) {
-
-        // O formato dessa imagem tava enchendo o saco 
-        if(dataEmAlta.data[i].images.jpg.image_url == 'https://cdn.myanimelist.net/img/sp/icon/apple-touch-icon-256.png'){
-            i++
-        }else{
-            // Formatação para tirar indecencias
-            var cont = 0
-            for(v = 0; v < dataEmAlta.data[i].genres.length; v++){
-                
-                if(dataEmAlta.data[i].genres[v].name == 'Ecchi' || 
-                dataEmAlta.data[i].genres[v].name == 'Hentai' ||
-                dataEmAlta.data[i].genres[v].name == 'Erotica'){
-                   cont ++
-                }
-            }
-            // Retirar mangás repitidos
-            if(dataEmAlta.data[i].mal_id == malID){
+    const dataLancamentos = await fetch(urlLancamentos, {method: 'GET'}).then(res=>res.json())
+    let dataContent = [dataEmAlta, dataLancamentos]
+    // console.log(dataContent[0])
+    for(var r = 0; r < dataContent.length; r++){
+        console.log(r)
+        for( i = 0; i < dataContent[r].data.length; i++){
+        
+            if(dataContent[r].data[i].images.jpg.image_url == 'https://cdn.myanimelist.net/img/sp/icon/apple-touch-icon-256.png'){
                 i++
             }else{
-                var malID = dataEmAlta.data[i].mal_id
-            }
-           
-            if(cont == 0){
-                emAlta.innerHTML += `
-                <div class="manga" id="${i}">
-                    <img src="${dataEmAlta.data[i].images.jpg.image_url}" alt="">
-                </div>
-                `
-                const emAltaMangas = document.querySelectorAll('#em_alta div')
-                emAltaMangas.forEach((e)=>{
-                        e.addEventListener('click', ()=>{
-                            pagesManga(dataEmAlta, e.id)
-                    })
-                })
-            }
-         
-       
-        }
-
-     }
-     
-
-     
-      // mangas lançamentos
-      const dataLancamentos = await fetch(urlLancamentos, {method: 'GET'}).then(res=>res.json())
-      const lancamentos = document.querySelector('#lancamentos')
-      for (var i = 0; i < dataLancamentos.data.length; i++) {
-
-        // O formato dessa imagem tava enchendo o saco 
-        if(dataLancamentos.data[i].images.jpg.image_url == 'https://cdn.myanimelist.net/img/sp/icon/apple-touch-icon-256.png'){
-            i++
-        }else{
-            // Formatação para tirar indecencias 
-            var cont = 0
-            for(v = 0; v < dataLancamentos.data[i].genres.length; v++){
-                
-                if(dataLancamentos.data[i].genres[v].name == 'Ecchi' || 
-                dataLancamentos.data[i].genres[v].name == 'Hentai' ||
-                dataLancamentos.data[i].genres[v].name == 'Erotica'){
-                   cont ++
+                // Formatação para tirar indecencias
+                var cont = 0
+                for(v = 0; v < dataContent[r].data[i].genres.length; v++){
+                    if(dataContent[r].data[i].genres[v].name == 'Ecchi' || 
+                    dataContent[r].data[i].genres[v].name == 'Hentai' ||
+                    dataContent[r].data[i].genres[v].name == 'Erotica'){
+                    cont ++
+                    }
                 }
-            }
-            if(cont == 0){
-                lancamentos.innerHTML += `
-                <div class="manga" id="${i}">
-                    <img src="${dataLancamentos.data[i].images.jpg.image_url}" alt="">
-                </div>
-                `
-                const lancamentosMangas = document.querySelectorAll('#lancamentos div')
-                lancamentosMangas.forEach((e)=>{
-                        e.addEventListener('click', ()=>{
-                            pagesManga(dataLancamentos, e.id)
-                    })
-                })
+                    // Retirar mangás repitidos
+                if(dataContent[r].data[i].mal_id == malID){
+                    i++
+                }else{
+                    var malID = dataContent[r].data[i].mal_id
+                }
 
+                // mostrar mangás na tela
+                const emAlta = document.querySelector('#em_alta')
+                const lancamentos = document.querySelector('#lancamentos')
+                if(cont == 0){
+                    var mangaSection  = [emAlta, lancamentos]
+                    if(r == 0){
+                        mangaSection[0].innerHTML += `
+                        <div class="manga" id="${i}">
+                            <img src="${dataContent[0].data[i].images.jpg.image_url}" alt="">
+                        </div>
+                        `
+                       
+                    }else{
+                      mangaSection[1].innerHTML += `
+                        <div class="manga" id="${i}">
+                            <img src="${dataContent[1].data[i].images.jpg.image_url}" alt="">
+                        </div>
+                        `
+                      
+                    }
+                    
+                }
+          
             }
-         
-       
+      
         }
+        
+    }
+        //eventos de click, mangá desc 
+        const emAltaMangas = document.querySelectorAll('#em_alta div')
+        emAltaMangas.forEach((e)=>{
+            e.addEventListener('click', ()=>{
+                pagesManga(dataContent[0].data[e.id])
+            })
+        })
+        const LancamentosMangas = document.querySelectorAll('#lancamentos div')
+        LancamentosMangas.forEach((e)=>{
+            e.addEventListener('click', ()=>{
+                pagesManga(dataContent[1].data[e.id])
+            })
+        })
+}
 
-     }
- 
-
-     
      const mangaImg = document.querySelector('.content_img')
      const mangaTitle = document.querySelector('#title')
      const mangaAutor = document.querySelector('#autor')
@@ -231,47 +208,47 @@ async function GetAllMangas(){
      const mangaStatus = document.querySelector('#status')
      const mangaSino = document.querySelector('#sinopse')
 
-     function pagesManga(local, item){
+     function pagesManga(local){
         // itens da descrição do mangá
         mangaDesc.style.display = 'flex'
-        // console.log(local.data[item])
+        // console.log(local)
         mangaImg.innerHTML =`
-        <img id="img" src="${local.data[item].images.jpg.image_url}" alt="">
+        <img id="img" src="${local.images.jpg.image_url}" alt="">
         `
         // Titulo
-        if(local.data[item].title.length == 0 || local.data[item].title == null){
+        if(local.title.length == 0 || local.title == null){
             mangaTitle.innerHTML =`Titulo: Desconhecido`
         }else{
-            mangaTitle.innerHTML =`${local.data[item].title}`
+            mangaTitle.innerHTML =`${local.title}`
         }
         
         // Autor
-        if(local.data[item].authors.length == 0){
+        if(local.authors.length == 0){
             mangaAutor.innerHTML =`Desconhecido`
         }else{
             // for 
             mangaAutor.innerHTML = ""
-            for( v = 0; v < local.data[item].authors.length; v++){
-               mangaAutor.innerHTML += `${local.data[item].authors[v].name} </br>`
+            for( v = 0; v < local.authors.length; v++){
+               mangaAutor.innerHTML += `${local.authors[v].name} </br>`
             }
          
         }
 
         // Generos 
-        if(local.data[item].genres.length == 0 || local.data[item].genres == null){
-            if(local.data[item].demographics.length != 0){
-                mangaGene.innerHTML = `<li class="tipo"> ${local.data[item].demographics[0].name} </li>`
+        if(local.genres.length == 0 || local.genres == null){
+            if(local.demographics.length != 0){
+                mangaGene.innerHTML = `<li class="tipo"> ${local.demographics[0].name} </li>`
             }else{
                 mangaGene.innerHTML =`Desconhecido`
             }
         }else{
             mangaGene.innerHTML = ""
-            if(local.data[item].demographics.length != 0){
-                mangaGene.innerHTML += `<li class="tipo"> ${local.data[item].demographics[0].name} </li>`
+            if(local.demographics.length != 0){
+                mangaGene.innerHTML += `<li class="tipo"> ${local.demographics[0].name} </li>`
             }
            
-            for( v = 0; v < local.data[item].genres.length; v++){
-               mangaGene.innerHTML += `<li> ${local.data[item].genres[v].name} </li>`
+            for( v = 0; v < local.genres.length; v++){
+               mangaGene.innerHTML += `<li> ${local.genres[v].name} </li>`
             }
          
           
@@ -279,42 +256,42 @@ async function GetAllMangas(){
         }
 
         // Capitulos
-        if(local.data[item].chapters == null || local.data[item].chapters.length == 0){
-            if(local.data[item].volumes == null || local.data[item].volumes.length == 0){
+        if(local.chapters == null || local.chapters.length == 0){
+            if(local.volumes == null || local.volumes.length == 0){
                 mangaCap.innerHTML =`<span class="span_sep">capitulos:</span> 
                 <p id="cap">Desconhecido</p>` 
             }else{
                 mangaCap.innerHTML =`<span class="span_sep">Volumes:</span> 
-                <p id="cap">${local.data[item].volumes}</p>`
+                <p id="cap">${local.volumes}</p>`
             }
             
         }else{
             mangaCap.innerHTML =`
             <span class="span_sep">Capitulos:</span> 
-                <p id="cap">${local.data[item].chapters}</p>`
+                <p id="cap">${local.chapters}</p>`
         }
         
         // Status
-        if(local.data[item].status == null || local.data[item].status.length == 0){
+        if(local.status == null || local.status.length == 0){
             mangaStatus.innerHTML =`Desconhecido`
         }else{
-            mangaStatus.innerHTML =`${local.data[item].status}`
+            mangaStatus.innerHTML =`${local.status}`
         }
 
         // Sinopse
-        if(local.data[item].synopsis == null || local.data[item].synopsis.length == 0){
+        if(local.synopsis == null || local.synopsis.length == 0){
             mangaSino.innerHTML =`Desconhecido`
         }else{
-            mangaSino.innerHTML =`${local.data[item].synopsis}`
+            mangaSino.innerHTML =`${local.synopsis}`
         }
        
             
           
        
-    }
 }
 
 
+// fechar mangá descrição
 const mangaDesc = document.querySelector('.manga_desc')
 document.querySelector('#btn_fechar')
 .addEventListener('click', ()=>{
@@ -323,11 +300,8 @@ document.querySelector('#btn_fechar')
 
 
 
-// Pesquisa
-
-
+// função pesquisar
 const inputPesquisa = document.querySelector("#pesquisa input")
-
 var cont = 0
 inputPesquisa.addEventListener('keyup',(e)=>{
     document.getElementById('resultado').style.display = 'flex'
@@ -342,12 +316,14 @@ inputPesquisa.addEventListener('keyup',(e)=>{
             result.innerHTML += ''
         }
 
-    } testePesquisa()
+    } 
+   
         // pesquisar ao clicar no start
         let keyCode = e.keyCode || e.which
         if (keyCode == 13) {
             testePesquisa()
         }
+
         // pesquisar ao apagar 
         // if(inputPesquisa.keydown){
         //     testePesquisa()
@@ -361,6 +337,7 @@ inputPesquisa.addEventListener('keyup',(e)=>{
             },1000)
         }
 
+        // fechar divi resultado
         document.addEventListener('mouseup', function(e) {
             // console.log(e.target)
             var container = document.getElementById('content_resultados');
@@ -377,41 +354,60 @@ inputPesquisa.addEventListener('keyup',(e)=>{
 
 
 
-
-
+// Adicionar os resultasdos da pesquisa 
 var result = document.querySelector('#content_resultados')
 async function pesquisa (param){
     var urlPesquisa = `https://api.jikan.moe/v4/manga?q=${param}&sfw&order_by=popularity`
 
     const dataPesquisa = await fetch(urlPesquisa, {method: 'GET'}).then(res=>res.json())
-    console.log(dataPesquisa.data)
+    // console.log(dataPesquisa.data)
     result.innerHTML = ``
+        var cont = 0
     for(i = 0; i < dataPesquisa.data.length; i++){
-        result.innerHTML += `
-        <div class="resultado_manga">
+        var cont = 0
+        for(v = 0; v < dataPesquisa.data[i].genres.length; v++){
+            if(dataPesquisa.data[i].genres[v].name == 'Ecchi' || 
+            dataPesquisa.data[i].genres[v].name == 'Hentai' ||
+            dataPesquisa.data[i].genres[v].name == 'Erotica'){
+            cont ++
+            }
+        }
+
+        if(cont == 0){
+            
+            // let img = document.querySelector('.result_img')
+            // let title = document.querySelector('#result_title')
+            // let cap = document.querySelector('#result_cap')
+            let generos  = document.querySelector('.result_generos')
+            let c = 0
+            for(v = 0; v < dataPesquisa.data[i].genres.length; v++){
+                c++
+            }
+            
+            // var autores = document.querySelector('')
+            result.innerHTML += `
+            <div class="resultado_manga">
+                    
+                <div class="result_img">
+                    <img src="${dataPesquisa.data[i].images.jpg.image_url}" alt="">
+                </div>
                 
-        <div class="result_img">
-            <img src="${dataPesquisa.data[i].images.jpg.image_url}" alt="">
-        </div>
-        
-        <div class="resultado_txt">
-            <span id="result_title">${dataPesquisa.data[i].title}</span>
-            <div class="content_result_cap">
-                <span class="pre">Capitulos:</span> <p id="result_cap">${dataPesquisa.data[i].chapters}</p>
+                <div class="resultado_txt">
+                    <span id="result_title">${dataPesquisa.data[i].title}</span>
+                    <div class="content_result_cap">
+                        <span class="pre">Capitulos:</span> <p id="result_cap">${dataPesquisa.data[i].chapters}</p>
+                    </div>
+                    <span class="pre">Generos:</span>
+                    <ul class="result_generos">
+                        <li>${dataPesquisa.data[i].genres[0].name}</li>
+                    </ul>
+                </div>
             </div>
-            <span class="pre">Generos:</span>
-            <ul class="result_generos">
-                <li>Aventura</li>
-                <li>Fantasia</li>
-                <li>Drama</li>
-                <li>Terror</li>
-                <li>Vingança</li>
-                <li>Distopia</li>
-            </ul>
-        </div>
-    </div>
-        `
-    
+            `
+            
+        }
+       
     }
-   
 }
+   
+
