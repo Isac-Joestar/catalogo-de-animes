@@ -714,6 +714,12 @@ main{
         width: 45%;   
     }
 }
+@media screen and (max-width: 450px) {
+    .manga_desc{
+        top:8vh;
+       
+    }
+}
 @media screen and (max-width: 700px) {
     .manga_desc{
         width: 50%;   
