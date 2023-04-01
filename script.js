@@ -123,7 +123,7 @@ async function testeAPI (){
         GetAllMangas()
     )
 }; 
-testeAPI()
+// testeAPI()
 
 
 

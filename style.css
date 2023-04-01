@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Alata&family=Josefin+Sans:wght@300&family=Roboto:ital,wght@0,400;0,500;0,700;1,400&display=swap');
+@import url('./responsividade.css');
 /*  
 font-family: 'Alata', sans-serif;
 font-family: 'Josefin Sans', sans-serif;
@@ -293,13 +294,13 @@ header{
 .manga_desc{
     background-color: rgba(240, 248, 255, 0.952);
     height: auto;
-    width: 25vw;
+    width: 25%;
 
     position: fixed;
     top: 10vh;
     right: 2px;
    
-    display: none;
+    display: flex;
     flex-direction: column;
     align-items: center;
  
@@ -493,3 +494,82 @@ header{
     justify-content: center;
 
 }
+
+
+/* Responsividade Header */
+@media screen and (max-width: 600px) {
+    #logo-header img{
+        width: 40px;
+
+
+    }
+    #pesquisa label span, #tema span{
+        font-size: 1.7rem;
+
+    }
+    #pesquisa input{
+        border-radius: 20px;
+        width: 300px;
+        height: 30px;
+        font-size: 1.1rem;
+        padding-left: 10px;
+    }
+}
+@media screen and (max-width: 500px) {
+    #logo-header img{
+        width: 40px;
+    }
+    #pesquisa label span, #tema span{
+        font-size: 1.8rem;
+
+    }
+    #pesquisa input{
+        border-radius: 20px;
+        width: 250px;
+      
+    }
+}
+@media screen and (max-width: 450px) {
+
+    Header{
+        height: 8vh;
+    }
+
+    #pesquisa label span{
+        display: none;
+    }
+    #pesquisa input{
+        width: 200px;
+   
+        /* background-color: aqua; */
+    }
+    #pesquisa input::placeholder{
+        color: #ffffff94;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: flex-start;
+        justify-content: flex-start;
+        text-align: start;
+       
+    }
+}
+@media screen and (max-width: 350px) {
+    #logo-header img{
+        width: 35px;
+    }
+    #pesquisa input{
+        width: 100%;
+        margin: 0 10px;
+    }
+}
+@media screen and (max-width: 300px) {
+    #tema{
+        display: none;
+    }
+    #pesquisa input{
+        margin: 0px 0px 0px 5px;
+    }
+}
+
+/* Responsividade Main */
