@@ -68,7 +68,7 @@ document.getElementById("radio1").checked = true;
 let count = 1
 setInterval(()=>{
     nextImage()
-},5000)
+},10000)
 
 function nextImage(){
     count ++;
