@@ -439,23 +439,46 @@ async function pesquisa (param){
                 
                 <div class="resultado_txt">
                     <span id="result_title">${dataPesquisa.data[i].title}</span>
-                    <div class="content_result_cap">
-                        <span class="pre">Capitulos:</span> <p id="result_cap">${dataPesquisa.data[i].chapters}</p>
+                    <div class="content_result_cap" id="content_result_cap_${i}">
+                        <span class="pre">Capitulos:</span> <p id="result_cap"></p>
                     </div>
                     <span class="pre">Generos:</span>
-                    <ul class="result_generos">
-                        <li>${dataPesquisa.data[i].genres[0].name}</li>
+                    <ul class="result_generos" id="result_generos_${i}">
+                    
                     </ul>
                 </div>
             </div>
             `
-            
+            var resultGene = document.querySelector(`#result_generos_${i}`)
+            generosPesquisa(dataPesquisa.data[i], resultGene)
+           
+         
+           
         }
        
+    }
+    
+    function generosPesquisa(local, locHtml){
+        if(local.genres.length == 0 || local.genres == null){
+            if(local.demographics.length != 0){
+                locHtml.innerHTML = `<li class="tipo"> ${local.demographics[0].name} </li>`
+            }else{
+                locHtml.innerHTML =`Desconhecido`
+            }
+        }else{
+            locHtml.innerHTML = ""
+            if(local.demographics.length != 0){
+                locHtml.innerHTML += `<li class="tipo"> ${local.demographics[0].name} </li>`
+            }
+            for( v = 0; v < local.genres.length; v++){
+                locHtml.innerHTML += `<li class=""> ${local.genres[v].name} </li>`
+            }            
+        }
     }
     document.querySelectorAll('.resultado_manga')
     .forEach((e)=>{
         e.addEventListener('click', ()=>{
+            // console.log(dataPesquisa.data[e.id])
            pagesManga(dataPesquisa.data[e.id]) 
         })
     })
