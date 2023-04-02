@@ -826,19 +826,12 @@ main{
 }
 @media screen and (max-width: 600px) {
     #content_resultados, .fechar_result{
-        width: 80vw;   
-    }
-}
-@media screen and (max-width: 500px) {
-    #content_resultados, .fechar_result{
-        width: 90vw;   
+        width: 100%;   
     }
 }
 @media screen and (max-width: 450px) {
     #resultado{
         top: 8vh;
     }
-    #content_resultados, .fechar_result{
-        width: 95vw;   
-    }
+
 }
