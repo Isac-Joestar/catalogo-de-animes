@@ -357,10 +357,11 @@ main{
 .content_generos,
 .content_generos_mobile{
     margin-top: 10px;
+}
+.content_generos{
     display: flex;
     flex-direction: column;
 }
-
 #generos, #generos_mobile{
     display: flex;
     flex-wrap: wrap;
