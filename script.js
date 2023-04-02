@@ -207,41 +207,63 @@ async function GetAllMangas(){
         })
 }
 
-     const mangaImg = document.querySelector('.content_img')
-     const mangaTitle = document.querySelector('#title')
-     const mangaAutor = document.querySelector('#autor')
-     const mangaGene = document.querySelector('#generos')
-     const mangaCap = document.querySelector('.content_cap')
-     const mangaStatus = document.querySelector('#status')
-     const mangaSino = document.querySelector('#sinopse')
+const mangaImg = document.querySelector('.content_img')
+const mangaTitle = document.querySelector('#title')
+const mangaAutor = document.querySelector('#autor')
+const mangaGene = document.querySelector('#generos')
+const mangaCap = document.querySelector('.content_cap')
+const mangaStatus = document.querySelector('#status')
+const mangaSino = document.querySelector('#sinopse')
 
-     function pagesManga(local){
-        // itens da descrição do mangá
-        mangaDesc.style.display = 'flex'
-        // console.log(local)
-        mangaImg.innerHTML =`
-        <img id="img" src="${local.images.jpg.image_url}" alt="">
-        `
-        // Titulo
-        if(local.title.length == 0 || local.title == null){
-            mangaTitle.innerHTML =`Titulo: Desconhecido`
-        }else{
-            mangaTitle.innerHTML =`${local.title}`
+
+
+function pagesManga(local){
+    const contentGeneroReponsivo = document.querySelector('.content_generos_mobile')
+    const generoResponsivo = document.querySelector('#generos_mobile')
+    // itens da descrição do mangá
+    mangaDesc.style.display = 'flex'
+    // console.log(local)
+    mangaImg.innerHTML =`
+    <img id="img" src="${local.images.jpg.image_url}" alt="">
+    `
+    // Titulo
+    if(local.title.length == 0 || local.title == null){
+        mangaTitle.innerHTML =`Titulo: Desconhecido`
+    }else{
+        mangaTitle.innerHTML =`${local.title}`
+    }
+    
+    // Autor
+    if(local.authors.length == 0){
+        mangaAutor.innerHTML =`Desconhecido`
+    }else{
+        // for 
+        mangaAutor.innerHTML = ""
+        for( v = 0; v < local.authors.length; v++){
+            mangaAutor.innerHTML += `${local.authors[v].name} </br>`
         }
         
-        // Autor
-        if(local.authors.length == 0){
-            mangaAutor.innerHTML =`Desconhecido`
-        }else{
-            // for 
-            mangaAutor.innerHTML = ""
-            for( v = 0; v < local.authors.length; v++){
-               mangaAutor.innerHTML += `${local.authors[v].name} </br>`
-            }
-         
-        }
+    }
 
-        // Generos 
+    // Generos 
+    if (getComputedStyle(contentGeneroReponsivo).display == 'flex'){
+        if(local.genres.length == 0 || local.genres == null){
+            if(local.demographics.length != 0){
+                generoResponsivo.innerHTML = `<li class="tipo"> ${local.demographics[0].name} </li>`
+            }else{
+                generoResponsivo.innerHTML =`Desconhecido`
+            }
+        }else{
+            generoResponsivo.innerHTML = ""
+            if(local.demographics.length != 0){
+                generoResponsivo.innerHTML += `<li class="tipo"> ${local.demographics[0].name} </li>`
+            }
+            for( v = 0; v < local.genres.length; v++){
+                generoResponsivo.innerHTML += `<li> ${local.genres[v].name} </li>`
+            }            
+        }
+    }else{
+        console.log(getComputedStyle(contentGeneroReponsivo).display)
         if(local.genres.length == 0 || local.genres == null){
             if(local.demographics.length != 0){
                 mangaGene.innerHTML = `<li class="tipo"> ${local.demographics[0].name} </li>`
@@ -253,48 +275,47 @@ async function GetAllMangas(){
             if(local.demographics.length != 0){
                 mangaGene.innerHTML += `<li class="tipo"> ${local.demographics[0].name} </li>`
             }
-           
-            for( v = 0; v < local.genres.length; v++){
-               mangaGene.innerHTML += `<li> ${local.genres[v].name} </li>`
-            }
-         
-          
-         
-        }
-
-        // Capitulos
-        if(local.chapters == null || local.chapters.length == 0){
-            if(local.volumes == null || local.volumes.length == 0){
-                mangaCap.innerHTML =`<span class="span_sep">capitulos:</span> 
-                <p id="cap">Desconhecido</p>` 
-            }else{
-                mangaCap.innerHTML =`<span class="span_sep">Volumes:</span> 
-                <p id="cap">${local.volumes}</p>`
-            }
             
+            for( v = 0; v < local.genres.length; v++){
+                mangaGene.innerHTML += `<li> ${local.genres[v].name} </li>`
+            }            
+        }
+    
+    }
+
+    // Capitulos
+    if(local.chapters == null || local.chapters.length == 0){
+        if(local.volumes == null || local.volumes.length == 0){
+            mangaCap.innerHTML =`<span class="span_sep">capitulos:</span> 
+            <p id="cap">Desconhecido</p>` 
         }else{
-            mangaCap.innerHTML =`
-            <span class="span_sep">Capitulos:</span> 
-                <p id="cap">${local.chapters}</p>`
+            mangaCap.innerHTML =`<span class="span_sep">Volumes:</span> 
+            <p id="cap">${local.volumes}</p>`
         }
         
-        // Status
-        if(local.status == null || local.status.length == 0){
-            mangaStatus.innerHTML =`Desconhecido`
-        }else{
-            mangaStatus.innerHTML =`${local.status}`
-        }
+    }else{
+        mangaCap.innerHTML =`
+        <span class="span_sep">Capitulos:</span> 
+            <p id="cap">${local.chapters}</p>`
+    }
+    
+    // Status
+    if(local.status == null || local.status.length == 0){
+        mangaStatus.innerHTML =`Desconhecido`
+    }else{
+        mangaStatus.innerHTML =`${local.status}`
+    }
 
-        // Sinopse
-        if(local.synopsis == null || local.synopsis.length == 0){
-            mangaSino.innerHTML =`Desconhecido`
-        }else{
-            mangaSino.innerHTML =`${local.synopsis}`
-        }
-       
-            
-          
-       
+    // Sinopse
+    if(local.synopsis == null || local.synopsis.length == 0){
+        mangaSino.innerHTML =`Desconhecido`
+    }else{
+        mangaSino.innerHTML =`${local.synopsis}`
+    }
+    
+        
+        
+    
 }
 
 
