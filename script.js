@@ -380,17 +380,16 @@ inputPesquisa.addEventListener('keyup',(e)=>{
 document.querySelector('#btn_fechar_result')
 .addEventListener('click', ()=>{
     document.querySelector('body').style.position = 'relative'
-    // console.log(e.target)
-    var container = document.getElementById('content_resultados');
-    if (!container.contains(e.target)) {
-        document.getElementById('resultado').style.display = 'none';
-    }
+    document.getElementById('resultado').style.display = 'none';
+   
 })
 document.addEventListener('mouseup', function(e) {
-    document.querySelector('body').style.position = 'relative'
+  
     // console.log(e.target)
+    var fecharResult = document.querySelector('.fechar_result')
     var container = document.getElementById('content_resultados');
-    if (!container.contains(e.target)) {
+    if (!container.contains(e.target) && !fecharResult.contains(e.target) && !mangaDesc.contains(e.target)) {
+        document.querySelector('body').style.position = 'relative'
         document.getElementById('resultado').style.display = 'none';
     }
 }); 
@@ -432,7 +431,7 @@ async function pesquisa (param){
             
             // var autores = document.querySelector('')
             result.innerHTML += `
-            <div class="resultado_manga">
+            <div class="resultado_manga" id="${i}">
                     
                 <div class="result_img">
                     <img src="${dataPesquisa.data[i].images.jpg.image_url}" alt="">
@@ -454,6 +453,12 @@ async function pesquisa (param){
         }
        
     }
+    document.querySelectorAll('.resultado_manga')
+    .forEach((e)=>{
+        e.addEventListener('click', ()=>{
+           pagesManga(dataPesquisa.data[e.id]) 
+        })
+    })
 }
    
 
