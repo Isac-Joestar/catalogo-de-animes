@@ -357,14 +357,13 @@ main{
 .content_generos,
 .content_generos_mobile{
     margin-top: 10px;
+    display: flex;
+    flex-direction: column;
 }
 
 #generos, #generos_mobile{
     display: flex;
     flex-wrap: wrap;
-}
-.content_generos_mobile{
-    display: none;
 }
 #generos li, #generos_mobile li{
     background-color: #808080;
@@ -421,6 +420,21 @@ main{
     border: 3px solid rgb(148, 148, 148)  /* creates padding around scroll thumb */
   }
 
+/* geneos mobile */
+.content_generos_mobile{
+    width: 100%;
+    display: none;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-direction: column;
+}
+.desc_mobile .content_generos{
+    margin-left: 10px;
+}
+
+.desc_mobile .content_generos #generos{
+    margin-left: 0;
+}
 
   /* content resultados */
 #resultado{

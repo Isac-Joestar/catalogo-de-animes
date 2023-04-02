@@ -210,16 +210,18 @@ async function GetAllMangas(){
 const mangaImg = document.querySelector('.content_img')
 const mangaTitle = document.querySelector('#title')
 const mangaAutor = document.querySelector('#autor')
-const mangaGene = document.querySelector('#generos')
+
 const mangaCap = document.querySelector('.content_cap')
 const mangaStatus = document.querySelector('#status')
 const mangaSino = document.querySelector('#sinopse')
 
+const mangaGene = document.querySelector('#generos')
+const contentMangaGene =  document.querySelector('.content_generos')
 
-
+const contentGeneroReponsivo = document.querySelector('.content_generos_mobile')
+const generoResponsivo = document.querySelector('#generos_mobile')
 function pagesManga(local){
-    const contentGeneroReponsivo = document.querySelector('.content_generos_mobile')
-    const generoResponsivo = document.querySelector('#generos_mobile')
+
     // itens da descrição do mangá
     mangaDesc.style.display = 'flex'
     // console.log(local)
@@ -246,7 +248,11 @@ function pagesManga(local){
     }
 
     // Generos 
-    if (getComputedStyle(contentGeneroReponsivo).display == 'flex'){
+    // getComputedStyle >>> reconhecer style mesmo em @ media 
+    // getComputedStyle(contentGeneroReponsivo).display == 'flex'
+    if ( local.genres.length  > 5){
+        contentMangaGene.style.display = 'none'
+        contentGeneroReponsivo.style.display = 'flex'
         if(local.genres.length == 0 || local.genres == null){
             if(local.demographics.length != 0){
                 generoResponsivo.innerHTML = `<li class="tipo"> ${local.demographics[0].name} </li>`
@@ -263,7 +269,8 @@ function pagesManga(local){
             }            
         }
     }else{
-        console.log(getComputedStyle(contentGeneroReponsivo).display)
+        contentMangaGene.style.display = 'flex'
+        contentGeneroReponsivo.style.display = 'none'
         if(local.genres.length == 0 || local.genres == null){
             if(local.demographics.length != 0){
                 mangaGene.innerHTML = `<li class="tipo"> ${local.demographics[0].name} </li>`
