@@ -787,10 +787,7 @@ main{
         font-weight: 600;
         margin-right: 4px;
     }
-    .content_autor,
-    .content_generos{
-        margin-top: 10px;
-    }
+  
     #generos{
         display: flex;
         flex-wrap: wrap;
