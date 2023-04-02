@@ -353,16 +353,24 @@ main{
     font-weight: 600;
     margin-right: 4px;
 }
-.content_autor,
+.container_autor,
 .content_generos,
 .content_generos_mobile{
     margin-top: 10px;
 }
-.content_generos{
+.container_autor{
     display: flex;
     flex-direction: column;
+    width: auto;
 }
-#generos, #generos_mobile{
+
+.content_generos{
+   
+    display: flex;
+    flex-direction: column;
+   
+}
+#generos, #generos_mobile, .content_autor{
     display: flex;
     flex-wrap: wrap;
 }
