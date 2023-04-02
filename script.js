@@ -339,6 +339,7 @@ document.querySelector('#btn_fechar')
 const inputPesquisa = document.querySelector("#pesquisa input")
 var cont = 0
 inputPesquisa.addEventListener('keyup',(e)=>{
+    document.querySelector('body').style.position = 'fixed'
     document.getElementById('resultado').style.display = 'flex'
     var text = inputPesquisa.value
     
@@ -373,16 +374,26 @@ inputPesquisa.addEventListener('keyup',(e)=>{
         }
 
         // fechar divi resultado
-        document.addEventListener('mouseup', function(e) {
-            // console.log(e.target)
-            var container = document.getElementById('content_resultados');
-            if (!container.contains(e.target)) {
-                document.getElementById('resultado').style.display = 'none';
-            }
-        }); 
+   
 })
 
-  
+document.querySelector('#btn_fechar_result')
+.addEventListener('click', ()=>{
+    document.querySelector('body').style.position = 'relative'
+    // console.log(e.target)
+    var container = document.getElementById('content_resultados');
+    if (!container.contains(e.target)) {
+        document.getElementById('resultado').style.display = 'none';
+    }
+})
+document.addEventListener('mouseup', function(e) {
+    document.querySelector('body').style.position = 'relative'
+    // console.log(e.target)
+    var container = document.getElementById('content_resultados');
+    if (!container.contains(e.target)) {
+        document.getElementById('resultado').style.display = 'none';
+    }
+}); 
 
 
 

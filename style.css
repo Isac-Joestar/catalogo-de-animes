@@ -15,7 +15,22 @@ font-family: 'Roboto', sans-serif;
 body{
     background-color: #141414;
     transition: all 0.5s;
+    
 }
+body::-webkit-scrollbar {
+    width: 7px;  
+  }
+  
+body::-webkit-scrollbar-track {
+    background: rgb(8, 8, 8);   
+    border-radius: 30px; 
+  }
+  
+body::-webkit-scrollbar-thumb {
+    background-color: rgb(245, 245, 245) ;    
+    border-radius: 20px;       
+    border: 2.5px solid rgb(8, 8, 8); 
+  }
 .light-mode-txt{
     color: #141414 !important;
 }
@@ -452,28 +467,35 @@ main{
     z-index: 11;
     position: fixed;
     top: 10vh;
-    /* background-color: rgba(32, 32, 32, 0.527); */
+    /* background-color: rgba(255, 255, 255, 0.877); */
    
   
-    display: none;
-    align-items: flex-start;
-    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
     backdrop-filter: blur(2px);
 
     
     
 }
+.fechar_result{
+    width: 50vw;
+    background-color: #ffffff;
+    margin: 0%;
+}
+.fechar_result span{
+    cursor: pointer;
+}
 #content_resultados{
+    position: relative;
     background-color: #ffffff;
     min-height: auto;
     max-height: 90%;
     width: 50vw;
-    padding: 5px;
-    border-radius: 5px;
-
+    border-radius: 0px 0px 5px 5px;
 
     overflow-y: auto;
-    
 }
 
 .resultado_manga{
@@ -790,32 +812,30 @@ main{
 
 /* Responsividade Pesquisa Mangá */
 @media screen and (max-width: 900px) {
-    #content_resultados{
+    #content_resultados, .fechar_result{
         width: 60vw;   
     }
 }
 @media screen and (max-width: 750px) {
-    #content_resultados{
+    #content_resultados, .fechar_result{
         width: 70vw;   
     }
 }
 @media screen and (max-width: 600px) {
-    #content_resultados{
+    #content_resultados, .fechar_result{
         width: 80vw;   
     }
 }
 @media screen and (max-width: 500px) {
-    #content_resultados{
+    #content_resultados, .fechar_result{
         width: 90vw;   
     }
 }
 @media screen and (max-width: 450px) {
-    #content_resultados{
-        width: 95vw;   
+    #resultado{
+        top: 8vh;
     }
-}
-@media screen and (max-width: 450px) {
-    #content_resultados{
-        width: 99vw;   
+    #content_resultados, .fechar_result{
+        width: 95vw;   
     }
 }
