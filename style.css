@@ -482,10 +482,13 @@ main{
 .fechar_result{
     width: 50vw;
     background-color: #ffffff;
-    margin: 0%;
+    padding: 5px;
 }
 .fechar_result span{
     cursor: pointer;
+    font-size: 1.7rem;
+    font-weight: 800;
+    color: #141414e8;
 }
 #content_resultados{
     position: relative;
