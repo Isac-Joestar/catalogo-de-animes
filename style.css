@@ -429,11 +429,11 @@ main{
     justify-content: flex-start;
     flex-direction: column;
 }
-.desc_mobile .content_generos{
+.desc_mobile .content_generos_mobile{
     margin-left: 10px;
 }
 
-.desc_mobile .content_generos #generos{
+.desc_mobile .content_generos_mobile #generos{
     margin-left: 0;
 }
 
@@ -744,7 +744,7 @@ main{
     }
 }
 @media screen and (max-width: 600px) {
-    .content_generos{
+    /* .content_generos{
         display: none;
     }
     .content_generos_mobile{
@@ -760,7 +760,7 @@ main{
   
     .desc_mobile .content_generos #generos{
         margin-left: 0;
-    }
+    } */
     .desc_top{
         /* background-color: aqua; */
         width: 100%;
