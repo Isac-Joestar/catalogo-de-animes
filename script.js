@@ -232,7 +232,13 @@ function pagesManga(local){
     if(local.title.length == 0 || local.title == null){
         mangaTitle.innerHTML =`Titulo: Desconhecido`
     }else{
-        mangaTitle.innerHTML =`${local.title}`
+        if(local.title.length > 30){
+            mangaTitle.innerHTML =`${local.title.substr(0,30) + "..."}`
+        }else{
+            mangaTitle.innerHTML =`${local.title}`
+        }
+       
+        
     }
     
     // Autor
@@ -293,7 +299,7 @@ function pagesManga(local){
     // Capitulos
     if(local.chapters == null || local.chapters.length == 0){
         if(local.volumes == null || local.volumes.length == 0){
-            mangaCap.innerHTML =`<span class="span_sep">capitulos:</span> 
+            mangaCap.innerHTML =`<span class="span_sep">Capítulos:</span> 
             <p id="cap">Desconhecido</p>` 
         }else{
             mangaCap.innerHTML =`<span class="span_sep">Volumes:</span> 
@@ -302,7 +308,7 @@ function pagesManga(local){
         
     }else{
         mangaCap.innerHTML =`
-        <span class="span_sep">Capitulos:</span> 
+        <span class="span_sep">Capítulos:</span> 
             <p id="cap">${local.chapters}</p>`
     }
     
@@ -414,11 +420,7 @@ async function pesquisa (param){
         }
 
         if(cont == 0){
-            
-            // let img = document.querySelector('.result_img')
-            // let title = document.querySelector('#result_title')
-            // let cap = document.querySelector('#result_cap')
-            let generos  = document.querySelector('.result_generos')
+                    
             let c = 0
             for(v = 0; v < dataPesquisa.data[i].genres.length; v++){
                 c++
@@ -435,9 +437,9 @@ async function pesquisa (param){
                 <div class="resultado_txt">
                     <span id="result_title">${dataPesquisa.data[i].title}</span>
                     <div class="content_result_cap" id="content_result_cap_${i}">
-                        <span class="pre">Capitulos:</span> <p id="result_cap">${dataPesquisa.data[i].chapters}</p>
+                        <span class="pre">Capítulos:</span> <p id="result_cap"></p>
                     </div>
-                    <span class="pre">Generos:</span>
+                    <span class="pre">Gêneros:</span>
                     <ul class="result_generos" id="result_generos_${i}">
                     
                     </ul>
@@ -445,30 +447,47 @@ async function pesquisa (param){
             </div>
             `
             var resultGene = document.querySelector(`#result_generos_${i}`)
-            generosPesquisa(dataPesquisa.data[i], resultGene)
+            verificarPesquisa(dataPesquisa.data[i], resultGene, 'generos')
            
-         
-           
+            var resultCap = document.querySelector(`#content_result_cap_${i}`)
+            verificarPesquisa(dataPesquisa.data[i], resultCap, 'cap')
         }
        
     }
     
-    function generosPesquisa(local, locHtml){
-        if(local.genres.length == 0 || local.genres == null){
-            if(local.demographics.length != 0){
-                locHtml.innerHTML = `<li class="tipo"> ${local.demographics[0].name} </li>`
+    function verificarPesquisa(local, locHtml, param){
+        // console.log(local)
+        if(param == 'cap'){
+            if(local.chapters == null || local.chapters.length == 0){
+                if(local.volumes == null || local.volumes.length == 0){
+                    locHtml.innerHTML =`  <span class="pre">Capitulos:</span><p id="result_cap">Desconhecido</p>` 
+                }else{
+                    locHtml.innerHTML =`span class="pre">Volumes:</span> <p id="result_cap">${local.volumes}</p>`
+                }
+                
             }else{
-                locHtml.innerHTML =`Desconhecido`
+                locHtml.innerHTML =`
+                <span class="pre">Capítulos:</span><p id="result_cap">${local.chapters}</p>`
             }
-        }else{
-            locHtml.innerHTML = ""
-            if(local.demographics.length != 0){
-                locHtml.innerHTML += `<li class="tipo"> ${local.demographics[0].name} </li>`
+            
+        }else if(param == 'generos'){
+            if(local.genres.length == 0 || local.genres == null){
+                if(local.demographics.length != 0){
+                    locHtml.innerHTML = `<li class="tipo"> ${local.demographics[0].name} </li>`
+                }else{
+                    locHtml.innerHTML =`Desconhecido`
+                }
+            }else{
+                locHtml.innerHTML = ""
+                if(local.demographics.length != 0){
+                    locHtml.innerHTML += `<li class="tipo"> ${local.demographics[0].name} </li>`
+                }
+                for( v = 0; v < local.genres.length; v++){
+                    locHtml.innerHTML += `<li class=""> ${local.genres[v].name} </li>`
+                }            
             }
-            for( v = 0; v < local.genres.length; v++){
-                locHtml.innerHTML += `<li class=""> ${local.genres[v].name} </li>`
-            }            
         }
+    
     }
     document.querySelectorAll('.resultado_manga')
     .forEach((e)=>{
@@ -479,6 +498,9 @@ async function pesquisa (param){
     })
 }
    
+
+
+
 document.querySelectorAll('#recomendados div')
 .forEach((e)=>{
     e.addEventListener('click', ()=>{
@@ -654,7 +676,11 @@ function pageRec(local){
     if(name.titulo.length == 0 || name.titulo == null){
         mangaTitle.innerHTML =`Titulo: Desconhecido`
     }else{
-        mangaTitle.innerHTML =`${name.titulo}`
+        if(name.titulo.length > 25){
+            mangaTitle.innerHTML =`${name.titulo.substr(0,30) + "..."}`
+        }else{
+            mangaTitle.innerHTML =`${name.titulo}`
+        }
     }
     
     // Autor
@@ -715,7 +741,7 @@ function pageRec(local){
     // Capitulos
     if(name.cap == null || name.cap.length == 0){
         if(name.volumes == null || name.volumes.length == 0){
-            mangaCap.innerHTML =`<span class="span_sep">capitulos:</span> 
+            mangaCap.innerHTML =`<span class="span_sep">capítulos:</span> 
             <p id="cap">Desconhecido</p>` 
         }else{
             mangaCap.innerHTML =`<span class="span_sep">Volumes:</span> 
@@ -724,7 +750,7 @@ function pageRec(local){
         
     }else{
         mangaCap.innerHTML =`
-        <span class="span_sep">Capitulos:</span> 
+        <span class="span_sep">Capítulos:</span> 
             <p id="cap">${name.cap}</p>`
     }
     
