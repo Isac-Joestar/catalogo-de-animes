@@ -394,11 +394,6 @@ document.addEventListener('mouseup', function(e) {
     }
 }); 
 
-
-
-
-
-
 // Adicionar os resultasdos da pesquisa 
 var result = document.querySelector('#content_resultados')
 async function pesquisa (param){
@@ -440,7 +435,7 @@ async function pesquisa (param){
                 <div class="resultado_txt">
                     <span id="result_title">${dataPesquisa.data[i].title}</span>
                     <div class="content_result_cap" id="content_result_cap_${i}">
-                        <span class="pre">Capitulos:</span> <p id="result_cap"></p>
+                        <span class="pre">Capitulos:</span> <p id="result_cap">${dataPesquisa.data[i].chapters}</p>
                     </div>
                     <span class="pre">Generos:</span>
                     <ul class="result_generos" id="result_generos_${i}">
@@ -484,4 +479,270 @@ async function pesquisa (param){
     })
 }
    
+document.querySelectorAll('#recomendados div')
+.forEach((e)=>{
+    e.addEventListener('click', ()=>{
+        pageRec(e.id)
+    })
+})
 
+var berserk = {
+    'images': './img/manga/Berserk.png',
+    'titulo': 'Berserk',
+    'autor': ['Kentarou ,Miura', 'Studio Gaga'],
+    'demografia': 'Seinen',
+    'generos': ['Adulto','Ação', 'Aventura', 'Demônios', 'Drama', 'Fantasia', 'Horror', 'Militar','Psicológico','Sobrenatural'],
+    'cap': '371',
+    'status': 'Em Lançamento',
+    'sinopse': `Guts, um ex-mercenário agora conhecido 
+    como o "Espadachim Negro", está em busca de vingança. 
+    Depois de uma infância tumultuada, ele finalmente encontra 
+    alguém que respeita e acredita que pode confiar, apenas para
+    ver tudo desmoronar quando essa pessoa tira tudo o que é importante 
+    para Guts com o objetivo de realizar seus próprios desejos. Agora marcado
+    para a morte, Guts é condenado a um destino em que é implacavelmente perseguido
+    por seres demoníacos. Partindo em uma missão terrível repleta de infortúnios, 
+    Guts, armado com uma espada enorme e uma força monstruosa, não deixará nada detê-lo,
+    nem mesmo a própria morte, até que finalmente seja capaz de cortar a cabeça 
+    daquele que o despojou - e seu ente querido - de sua humanidade.`
+}
+var vagabond = {
+    'images': './img/manga/Vagabond.png',
+    'titulo': 'Vagabond',
+    'autor': ['Inoue, Takehiko ', 'Yoshikawa, Eiji'],
+    'demografia': 'Seinen',
+    'generos': ['Ação', 'Aventura', 'Drama', 'Histórico', 'Samurai'],
+    'cap': '327',
+    'status': 'Finalizado',
+    'sinopse': `Baseado no livro Musashi, de Eiji Yoshikawa, tem como protagonista é o lendário espadachim Miyamoto Musashi, conhecido no Japão como sendo o maior samurai de todos os tempos. O mangá é um retrato fictício da vida de Musashi, um ronin (samurai que não serve a nenhum mestre) que viajava pelo Japão na procura de grandes adversários para desafiar e, assim, aprimorar-se. A mescla de lutas espetaculares, com a milenar filisofia oriental, além de uma pitada de romance e comédia, torna o mangá simplesmente irresistível.`
+}
+var vinlando_saga = {
+    'images': './img/manga/Vinland Saga.png',
+    'titulo': 'Vinland Saga',
+    'autor': ['Yukimura, Makoto'],
+    'demografia': 'Seinen',
+    'generos': ['Ação', 'Aventura', 'Drama', 'Histórico'],
+    'cap': '200',
+    'status': 'Em Lançamento',
+    'sinopse': `Thorfinn é filho de Thors, um lendário guerreiro viking, mas que após anos no campo de batalha, descobre uma coisa mais maravilhosa que matar seus iguais. Viver sua própria vida, em paz. Mas os ventos lhe trazem uma notícia que atrapalhará seus dias de paz, e Thorfinn, seu filho, pouco sabe desta vida passada de guerra de seu pai. Após descobrir o passado de seu pai, Thorfinn se revolta contra ele, e sai para a guerra junto de seu pai, mas quando reconhece o verdadeiro valor dele, já é tarde demais. Agora Thorfinn deverá seguir sua própria vida, seguindo valores que seu pai lhe ensinou, mas sem perder sua coragem. Este é só o começo desta grande saga de Thorfinn que acompanha os Vikings no século XI!!!`
+}
+var solo_leveling = {
+    'images': './img/manga/Solo Leveling.png',
+    'titulo': 'Solo Leveling',
+    'autor': ['Jang Sung-Lak'],
+    'demografia': 'Shounen',
+    'generos': ['Ação', 'Aventura'],
+    'cap': '191',
+    'status': 'Completo',
+    'sinopse': `Dez anos atrás, depois do "Portal" que conecta o mundo real com um mundo de montros se abriu, algumas pessoas comuns receberam o poder de caçar os monstros do portal. Eles são conhecidos como caçadores. Porém, nem todos os caçadores são fortes. Meu nome é Sung Jin-Woo, um caçador de rank E. Eu sou alguém que tem que arriscar a própria vida nas dungeons mais fracas, "O mais fraco do mundo". Sem ter nenhuma habilidade à disposição, eu mal consigo dinheiro nas dungeons de baixo nível... Ao menos até eu encontrar uma dungeon escondida com a maior dificuldade dentro do Rank D! No fim, enquanto aceitava minha morte, eu ganhei um novo poder!`
+}
+var shuumatsu= {
+    'images': './img/manga/Shuumatsu.png',
+    'titulo': 'Shuumatsu no Valkyrie',
+    'autor': ['Umemura, Shinya', 'Ajichika'],
+    'demografia': 'Seinen',
+    'generos': ['Ação', 'Drama', 'Sobrenatural','Super Poderes'],
+    'cap': '76',
+    'status': 'Em Lançamento',
+    'sinopse': `A cada 1.000 anos, as divindades se reúnem sob o conselho de Valhalla para decidir sobre o direito da humanidade de continuar vivendo, ou por sua destruição, porém desta vez os deuses estão furiosos com o descaso humano para com o planeta, pendendo passim para aniquilar toda a raça humana, porém uma única valquíria os convencem de realizar o Ragnarok, uma batalha mortal entre humanos e deuses para decidir sob sua sobrevivência, 13 humanos enfrentarão 13 deuses. Serão este humanos capazes de colidir com as poderosas divindades?`
+}
+var one_punch_man = {
+    'images': './img/manga/one_punch_man.jpg',
+    'titulo': 'One Punch Man',
+    'autor': ['ONE', 'Murata, Yusuke'],
+    'demografia': 'Paródia ',
+    'generos': ['Ação', 'Comédis','Sci-Fi', 'Sobrenatural', 'Super Poderes'],
+    'cap': '217',
+    'status': 'Em Lançamento',
+    'sinopse': `Depois de treinar rigorosamente por três anos, o Saitama comum ganhou uma força imensa que lhe permite eliminar qualquer um e qualquer coisa com apenas um soco. Ele decide fazer bom uso de sua nova habilidade, tornando-se um herói. No entanto, ele rapidamente fica entediado com a facilidade de derrotar monstros e quer que alguém lhe dê um desafio para trazer de volta a centelha de ser um herói. Ao testemunhar o incrível poder de Saitama, Genos, um ciborgue, está determinado a se tornar o aprendiz de Saitama. Durante esse tempo, Saitama percebe que não está recebendo o reconhecimento que merece nem é conhecido pelo povo por não fazer parte da Associação de Heróis. Querendo aumentar sua reputação, Saitama decide registrar Genos com ele, em troca de aceitá-lo como aluno. Juntos, os dois começam a trabalhar para se tornarem verdadeiros heróis, na esperança de encontrar inimigos fortes e ganhar respeito no processo.`
+}
+var chainzaw_man = {
+    'images': './img/manga/chainzaw_man.jpg',
+    'titulo': 'Chainzaw Man',
+    'autor': ['Fujimoto, Tatsuki'],
+    'demografia': 'Shounen',
+    'generos': ['Ação', 'Aventura', 'Demônios'],
+    'cap': '124',
+    'status': 'Em Lançamento',
+    'sinopse': `Quando seu pai morreu, Denji ficou preso com uma dívida que era incapaz de pagar. Mas graças à ajuda de um cachorro demônio que ele salvou chamado Pochita, Denji é capaz de sobreviver como caçador de demônios de aluguel. Os poderes de serra elétrica do Pochita são bem poderosos contra estes demônios. E então, quando o Denji acaba sendo morto por um demônio, o Pochita desiste de sua vida para revivê-lo. Mas, agora o Denji renasceu como um hibrido de demônio com humano... Agora ele é o "Chainsaw Man"!!!`
+}
+var jujutsu_kaisen = {
+    'images': './img/manga/jujutsu_kaisen.jpg',
+    'titulo': 'Jujutsu Kaisen',
+    'autor': ['Gege, Akutami'],
+    'demografia': 'Shounen',
+    'generos': ['Ação', 'Demônios', 'Escolar', 'Fantasia', 'Magia', 'Sobrenatural'],
+    'cap': '218',
+    'status': 'Em Lançamento',
+    'sinopse': `Jujutsu Kaisen Yuji é um gênio do atletismo, mas não tem interesse algum em ficar correndo em círculos. Ele é feliz como membro no Clube de Estudo de Fenômenos Psíquicos. Apesar de estar no clube apenas por diversão, tudo fica sério quando um espírito de verdade aparece na escola! A vida está prestes a se tornar muito interessante na Escola Sugisawa...`
+}
+var the_begnning = {
+    'images': './img/manga/the_beginning.jpg',
+    'titulo': 'The Beginning After The End',
+    'autor': ['TurtleMe'],
+    'demografia': 'Webtoon',
+    'generos': ['Ação', 'Artes Marciais', 'Aventura', 'Drama', 'Fantasia', 'Magia', 'Romance', 'Super Poderes'],
+    'cap': '175',
+    'status': 'Em Lançamento',
+    'sinopse': `Rei Grey conquistou força, riquezas e prestígio sem iguais em um mundo governado pela habilidade marcial. Entretanto, a solidão acompanha de perto aqueles de grande poder. Por detrás da máscara de um glorioso e poderoso rei, reside a casca vazia de um homem destituído de propósito e vontade. Renascido em um novo mundo repleto de magia e monstros, o Rei Grey terá a chance de refazer sua vida. Corrigir os erros do passado não será seu único desafio, pois um perigo oculto cresce a cada instante, ameaçando destruir tudo que ele trabalhou para criar, o fazendo questionar a verdadeira razão de ter recebido uma nova vida...`
+}
+var baki_dou = {
+    'images': './img/manga/baki.jpg',
+    'titulo': 'Baki-dou',
+    'autor': ['Itagaki, Keisuke'],
+    'demografia': 'Shounen',
+    'generos': ['Ação', 'Artes Marciais', 'comédia', 'Drama', 'Esportes'],
+    'cap': '198',
+    'status': 'Em Lançamento',
+    'sinopse': `O Baki está entediado. Após a conclusão da batalha épica entre pai e filho, ele continua a lutar na arena subterrânea e treinar sem parar, mas ele sempre tem que suprimir seu bocejo causado pelo tédio prepotente. Nenhuma quantidade de estímulo ou perigo pode trazer excitação a ele neste momento. Agora, com a inclusão do Primeiro Ministro do Japão no sistema, um enorme projeto de clonagem está tentando clonar Miyamoto Musashi, um dos pais das artes marciais no Japão. Outra luta de proporções históricas espera Baki!`
+}
+var kengan_ashura = {
+    'images': './img/manga/kengan_ashura.jpg',
+    'titulo': 'Kengan Ashura',
+    'autor': ['Sandrovich, Yabako','Daromeon'],
+    'demografia': '',
+    'generos': ['Ação', 'Artes Marciais'],
+    'cap': '236',
+    'status': 'Finalizado',
+    'sinopse': `Desde o período Edo do Japão, existem arenas de gladiadores em certas áreas. Nestas arenas, donos de negócios ricos e comerciantes contratam gladiadores para lutar em combate desarmado, onde o vencedor leva tudo. Tokita Ouma, apelidado de "Ashura", se junta a essas arenas e destrói seus oponentes. Sua habilidade espetacular para esmagar seus inimigos chama a atenção dos grandes empresários, incluindo o presidente do Nogi Group, Nogi Hideki...`
+}
+var one_piece = {
+    'images': './img/manga/one_piece.jpg',
+    'titulo': 'One Piece',
+    'autor': ['Oda, Eiichiro'],
+    'demografia': 'Shounen',
+    'generos': ['Ação', 'Aventura', 'comédia', 'Fantasia', 'Super Poderes'],
+    'cap': '1079',
+    'status': 'Em Lançamento',
+    'sinopse': `One Piece começa quando Gol D. Roger, o Rei Dos Piratas que possuiu tudo nesse mundo, antes de ser executado, diz que escondeu o seu tesouro em algum lugar da Grand Line, um oceano extremamente perigoso. Desde então muitos piratas se aventuram pela Grand Line para tentar encontrar o tesouro chamado One Piece. Um deles é Monkey D. Luffy, o garoto que, acidentalmente, comeu uma das Akuma No Mi, a Gomu Gomu No Mi (Fruta da Borracha), e agora ele pode esticar seu corpo como se fosse uma borracha. A jornada dele começa atrás de companheiros e um barco, que ele vai conseguindo pouco a pouco, pois tem um objetivo: Ser o Rei Dos Piratas!!`
+}
+function pageRec(local){
+    if(local == 'berserk'){
+        var name = berserk
+    }else if(local == 'vagabond'){
+        name = vagabond
+    }else if(local == 'vinland_saga'){
+        name = vinlando_saga
+    }else if(local == 'solo_leveling'){
+        name = solo_leveling
+    }else if(local == 'shuumatsu'){
+        name = shuumatsu
+    }else if(local == 'one_punch_man'){
+        name = one_punch_man
+    }else if(local == 'jujutsu_kaisen'){
+        name = jujutsu_kaisen
+    }else if(local == 'chainzaw_man'){
+        name = chainzaw_man
+    }else if(local == 'the_beginning'){
+        name = the_begnning
+    }else if (local == 'baki_dou'){
+        name = baki_dou
+    }else if(local == 'kengan_ashura'){
+        name = kengan_ashura
+    }else if(local = 'one_piece'){
+        name = one_piece
+    }
+    console.log(name)
+
+    // itens da descrição do mangá
+    mangaDesc.style.display = 'flex'
+    // console.log(local)
+    mangaImg.innerHTML =`
+    <img id="img" src="${name.images}" alt="">
+    `
+    // Titul
+    if(name.titulo.length == 0 || name.titulo == null){
+        mangaTitle.innerHTML =`Titulo: Desconhecido`
+    }else{
+        mangaTitle.innerHTML =`${name.titulo}`
+    }
+    
+    // Autor
+    if(name.autor.length == 0){
+        mangaAutor.innerHTML =`Desconhecido`
+    }else{
+        // for 
+        mangaAutor.innerHTML = ""
+        for( v = 0; v < name.autor.length; v++){
+            mangaAutor.innerHTML += `${name.autor[v]} </br>`
+        }
+        
+    }
+
+    // Generos 
+    // getComputedStyle >>> reconhecer style mesmo em @ media 
+    // getComputedStyle(contentGeneroReponsivo).display == 'flex'
+    if ( name.generos.length  > 5){
+        contentMangaGene.style.display = 'none'
+        contentGeneroReponsivo.style.display = 'flex'
+        if(name.generos.length == 0 || name.generos == null){
+            if(name.demografia.length != 0){
+                generoResponsivo.innerHTML = `<li class="tipo"> ${name.demografia} </li>`
+            }else{
+                generoResponsivo.innerHTML =`Desconhecido`
+            }
+        }else{
+            generoResponsivo.innerHTML = ""
+            if(name.demografia.length != 0){
+                generoResponsivo.innerHTML += `<li class="tipo"> ${name.demografia} </li>`
+            }
+            for( v = 0; v < name.generos.length; v++){
+                generoResponsivo.innerHTML += `<li> ${name.generos[v]} </li>`
+            }            
+        }
+    }else{
+        contentMangaGene.style.display = 'flex'
+        contentGeneroReponsivo.style.display = 'none'
+        if(name.generos.length == 0 || name.generos == null){
+            if(name.demografia.length != 0){
+                mangaGene.innerHTML = `<li class="tipo"> ${name.demografia} </li>`
+            }else{
+                mangaGene.innerHTML =`Desconhecido`
+            }
+        }else{
+            mangaGene.innerHTML = ""
+            if(name.demografia.length != 0){
+                mangaGene.innerHTML += `<li class="tipo"> ${name.demografia} </li>`
+            }
+            
+            for( v = 0; v < name.generos.length; v++){
+                mangaGene.innerHTML += `<li> ${name.generos[v]} </li>`
+            }            
+        }
+    
+    }
+
+    // Capitulos
+    if(name.cap == null || name.cap.length == 0){
+        if(name.volumes == null || name.volumes.length == 0){
+            mangaCap.innerHTML =`<span class="span_sep">capitulos:</span> 
+            <p id="cap">Desconhecido</p>` 
+        }else{
+            mangaCap.innerHTML =`<span class="span_sep">Volumes:</span> 
+            <p id="cap">${name.volumes}</p>`
+        }
+        
+    }else{
+        mangaCap.innerHTML =`
+        <span class="span_sep">Capitulos:</span> 
+            <p id="cap">${name.cap}</p>`
+    }
+    
+    // Status
+    if(name.status == null || name.status.length == 0){
+        mangaStatus.innerHTML =`Desconhecido`
+    }else{
+        mangaStatus.innerHTML =`${name.status}`
+    }
+
+    // Sinopse
+    if(name.sinopse == null || name.sinopse.length == 0){
+        mangaSino.innerHTML =`Desconhecido`
+    }else{
+        mangaSino.innerHTML =`${name.sinopse}`
+    }
+    
+        
+        
+    
+}
