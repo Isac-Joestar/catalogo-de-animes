@@ -497,12 +497,10 @@ main{
 #content_resultados::-webkit-scrollbar {
     width: 7px;  
 }
-  
 #content_resultados::-webkit-scrollbar-track {
     background: rgb(255, 255, 255);   
     border-radius: 30px; 
 }
-  
 #content_resultados::-webkit-scrollbar-thumb {
     background-color: rgb(3, 3, 3) ;    
     border-radius: 20px;       
