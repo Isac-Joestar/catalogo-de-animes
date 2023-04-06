@@ -460,9 +460,9 @@ async function pesquisa (param){
         if(param == 'cap'){
             if(local.chapters == null || local.chapters.length == 0){
                 if(local.volumes == null || local.volumes.length == 0){
-                    locHtml.innerHTML =`  <span class="pre">Capitulos:</span><p id="result_cap">Desconhecido</p>` 
+                    locHtml.innerHTML =`<span class="pre">Capitulos:</span><p id="result_cap">Desconhecido</p>` 
                 }else{
-                    locHtml.innerHTML =`span class="pre">Volumes:</span> <p id="result_cap">${local.volumes}</p>`
+                    locHtml.innerHTML =`<span class="pre">Volumes:</span> <p id="result_cap">${local.volumes}</p>`
                 }
                 
             }else{
