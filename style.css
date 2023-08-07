@@ -92,6 +92,7 @@ header{
     justify-content: center;
     text-align: center;
     color: white;
+    font-size: 0.7rem;
 }
 .loght, .dark{
     transition: all 0.5s;
